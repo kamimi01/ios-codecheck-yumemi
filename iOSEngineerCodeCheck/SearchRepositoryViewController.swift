@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchRepositoryViewController: UITableViewController, UISearchBarDelegate {
+class SearchRepositoryViewController: UITableViewController {
     @IBOutlet weak private var searchBar: UISearchBar!
 
     var repositories: [[String: Any]] = []
@@ -19,19 +19,12 @@ class SearchRepositoryViewController: UITableViewController, UISearchBarDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setup()
+    }
+
+    private func setup() {
         searchBar.text = "GitHubのリポジトリを検索できるよー"
         searchBar.delegate = self
-    }
-
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        // ↓こうすれば初期のテキストを消せる
-        searchBar.text = ""
-        return true
-    }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        task?.cancel()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -41,6 +34,7 @@ class SearchRepositoryViewController: UITableViewController, UISearchBarDelegate
             return
         }
 
+        // GithubAPIでリポジトリのデータを取得
         url = "https://api.github.com/search/repositories?q=\(searchKeyword!)"
         task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
             do {
@@ -56,7 +50,6 @@ class SearchRepositoryViewController: UITableViewController, UISearchBarDelegate
                 // TODO: エラー処理
             }
         }
-        // これ呼ばなきゃリストが更新されません
         task?.resume()
     }
 
@@ -79,12 +72,21 @@ class SearchRepositoryViewController: UITableViewController, UISearchBarDelegate
         cell.detailTextLabel?.text = repository["language"] as? String ?? ""
         cell.tag = indexPath.row
         return cell
-
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 画面遷移時に呼ばれる
         selectedRowindex = indexPath.row
         performSegue(withIdentifier: "Detail", sender: self)
+    }
+}
+
+extension SearchRepositoryViewController: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.text = ""
+        return true
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        task?.cancel()
     }
 }

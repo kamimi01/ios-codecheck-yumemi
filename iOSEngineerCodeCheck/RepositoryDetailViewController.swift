@@ -21,7 +21,10 @@ class RepositoryDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
+    }
 
+    private func setup() {
         let repo = searchRepositoryVC.repositories[searchRepositoryVC.selectedRowindex]
 
         languageLabel.text = "Written in \(repo["language"] as? String ?? "")"
@@ -30,7 +33,6 @@ class RepositoryDetailViewController: UIViewController {
         forksLabel.text = "\(repo["forks_count"] as? Int ?? 0) forks"
         issuesLabel.text = "\(repo["open_issues_count"] as? Int ?? 0) open issues"
         getImage()
-
     }
 
     func getImage() {
