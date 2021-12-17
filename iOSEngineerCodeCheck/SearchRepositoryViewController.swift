@@ -37,30 +37,31 @@ class SearchRepositoryViewController: UITableViewController, UISearchBarDelegate
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchKeyword = searchBar.text!
 
-        if searchKeyword.count != 0 {
-            url = "https://api.github.com/search/repositories?q=\(searchKeyword!)"
-            task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
-                do {
-                    if let obj = try JSONSerialization.jsonObject(with: data!) as? [String: Any] {
-                        if let items = obj["items"] as? [[String: Any]] {
-                        self.repositories = items
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
-                        }
-                    }
-                } catch {
-                    // TODO: エラー処理
-                }
-            }
-        // これ呼ばなきゃリストが更新されません
-        task?.resume()
+        if searchKeyword.count == 0 {
+            return
         }
 
+        url = "https://api.github.com/search/repositories?q=\(searchKeyword!)"
+        task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
+            do {
+                guard let json = try JSONSerialization.jsonObject(with: data!) as? [String: Any],
+                      let items = json["items"] as? [[String: Any]] else {
+                    return
+                }
+                self.repositories = items
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } catch {
+                // TODO: エラー処理
+            }
+        }
+        // これ呼ばなきゃリストが更新されません
+        task?.resume()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Detail"{
+        if segue.identifier == "Detail" {
             let dtl = segue.destination as? RepositoryDetailViewController
             dtl?.searchRepositoryVC = self
         }
