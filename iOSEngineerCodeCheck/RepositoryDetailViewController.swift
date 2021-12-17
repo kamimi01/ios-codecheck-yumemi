@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController2: UIViewController {
+class RepositoryDetailViewController: UIViewController {
     @IBOutlet weak private var imageView: UIImageView!
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var languageLabel: UILabel!
@@ -17,12 +17,12 @@ class ViewController2: UIViewController {
     @IBOutlet weak private var forksLabel: UILabel!
     @IBOutlet weak private var issuesLabel: UILabel!
 
-    var vc1: ViewController!
+    var searchRepositoryVC: SearchRepositoryViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let repo = vc1.repo[vc1.idx]
+        let repo = searchRepositoryVC.repositories[searchRepositoryVC.selectedRowindex]
 
         languageLabel.text = "Written in \(repo["language"] as? String ?? "")"
         starsLabel.text = "\(repo["stargazers_count"] as? Int ?? 0) stars"
@@ -34,7 +34,7 @@ class ViewController2: UIViewController {
     }
 
     func getImage() {
-        let repo = vc1.repo[vc1.idx]
+        let repo = searchRepositoryVC.repositories[searchRepositoryVC.selectedRowindex]
 
         titleLabel.text = repo["full_name"] as? String
 
