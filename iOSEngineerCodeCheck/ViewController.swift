@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UITableViewController, UISearchBarDelegate {
 
-    @IBOutlet weak var SchBr: UISearchBar!
+    @IBOutlet weak private var searchBar: UISearchBar!
     
     var repo: [[String: Any]]=[]
     
@@ -22,8 +22,8 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        SchBr.text = "GitHubのリポジトリを検索できるよー"
-        SchBr.delegate = self
+        searchBar.text = "GitHubのリポジトリを検索できるよー"
+        searchBar.delegate = self
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -43,13 +43,17 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         if word.count != 0 {
             url = "https://api.github.com/search/repositories?q=\(word!)"
             task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
-                if let obj = try! JSONSerialization.jsonObject(with: data!) as? [String: Any] {
-                    if let items = obj["items"] as? [[String: Any]] {
-                    self.repo = items
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
+                do {
+                    if let obj = try JSONSerialization.jsonObject(with: data!) as? [String: Any] {
+                        if let items = obj["items"] as? [[String: Any]] {
+                        self.repo = items
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
                         }
                     }
+                } catch {
+                    // TODO: エラー処理
                 }
             }
         // これ呼ばなきゃリストが更新されません
@@ -61,8 +65,8 @@ class ViewController: UITableViewController, UISearchBarDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "Detail"{
-            let dtl = segue.destination as! ViewController2
-            dtl.vc1 = self
+            let dtl = segue.destination as? ViewController2
+            dtl?.vc1 = self
         }
         
     }
