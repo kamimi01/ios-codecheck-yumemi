@@ -11,7 +11,7 @@ import UIKit
 class SearchRepositoryViewController: UITableViewController {
     @IBOutlet weak private var searchBar: UISearchBar!
 
-    var repositories: [[String: Any]] = []
+    var repositories: [GitHubRepository] = []
     var task: URLSessionTask?
     var searchKeyword: String?
     var selectedRowindex: Int?
@@ -34,31 +34,31 @@ class SearchRepositoryViewController: UITableViewController {
             return
         }
 
-        // GithubAPIでリポジトリのデータを取得
-        let url = "https://api.github.com/search/repositories?q=\(searchKeyword)"
-        task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
-            do {
-                guard let data = data,
-                      let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                      let items = json["items"] as? [[String: Any]]
-                else {
+        // GithubAPIでリポジトリの一覧を取得
+        let client = GitHubClient()
+        let request = GitHubAPI.GitHubSearchRepo(keyword: searchKeyword)
+        client.send(request: request) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(response):
+                guard let items = response.items else {
                     return
                 }
                 self.repositories = items
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-            } catch {
-                // TODO: エラー処理
+            case let .failure(error):
+                // TODO: エラーのアラートを表示
+                print(error)
             }
         }
-        task?.resume()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Detail" {
-            let dtl = segue.destination as? RepositoryDetailViewController
-            dtl?.searchRepositoryVC = self
+            let detailView = segue.destination as? RepositoryDetailViewController
+            detailView?.searchRepositoryVC = self
         }
     }
 
@@ -70,8 +70,8 @@ class SearchRepositoryViewController: UITableViewController {
 
         let cell = UITableViewCell()
         let repository = repositories[indexPath.row]
-        cell.textLabel?.text = castToString(repository["full_name"])
-        cell.detailTextLabel?.text = castToString(repository["language"])
+        cell.textLabel?.text = repository.fullName
+        cell.detailTextLabel?.text = repository.language
         cell.tag = indexPath.row
         return cell
     }
@@ -79,15 +79,6 @@ class SearchRepositoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRowindex = indexPath.row
         performSegue(withIdentifier: "Detail", sender: self)
-    }
-
-    private func castToString(_ target: Any?) -> String {
-        guard let target = target,
-              let targetString = target as? String
-        else {
-            return "-"
-        }
-        return targetString
     }
 }
 

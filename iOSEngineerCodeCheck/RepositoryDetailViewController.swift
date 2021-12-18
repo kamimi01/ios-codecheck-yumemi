@@ -17,42 +17,48 @@ class RepositoryDetailViewController: UIViewController {
     @IBOutlet weak private var forksLabel: UILabel!
     @IBOutlet weak private var issuesLabel: UILabel!
 
-    var searchRepositoryVC: SearchRepositoryViewController!
+    weak var searchRepositoryVC: SearchRepositoryViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
 
+    /// 初期表示時のデータ準備
     private func setup() {
-        guard let selectedRowIndex = searchRepositoryVC.selectedRowindex else {
-            return
-        }
-        let repo = searchRepositoryVC.repositories[selectedRowIndex]
-
-        languageLabel.text = "Written in \(castToString(repo["language"]))"
-        starsLabel.text = "\(castToStringThoughInt(repo["stargazers_count"])) stars"
-        watchesLabel.text = "\(castToStringThoughInt(repo["wachers_count"])) watchers"
-        forksLabel.text = "\(castToStringThoughInt(repo["forks_count"])) forks"
-        issuesLabel.text = "\(castToStringThoughInt(repo["open_issues_count"])) open issues"
-        getImage()
-    }
-
-    func getImage() {
-        guard let selectedRowIndex = searchRepositoryVC.selectedRowindex else {
-            return
-        }
-        let repo = searchRepositoryVC.repositories[selectedRowIndex]
-
-        titleLabel.text = castToString(repo["full_name"])
-
-        guard let owner = repo["owner"] as? [String: Any],
-              let imgURL = owner["avatar_url"] as? String
+        guard let searchRepositoryVC = searchRepositoryVC,
+              let selectedRowIndex = searchRepositoryVC.selectedRowindex
         else {
             return
         }
-        URLSession.shared.dataTask(with: URL(string: imgURL)!) { (data, res, err) in
-            guard let data = data,
+        let repo = searchRepositoryVC.repositories[selectedRowIndex]
+
+        languageLabel.text = "Written in \(unwrap(repo.language))"
+        starsLabel.text = "\(unwrap(repo.stargazersCount)) stars"
+        watchesLabel.text = "\(unwrap(repo.watchersCount)) watchers"
+        forksLabel.text = "\(unwrap(repo.forksCount)) forks"
+        issuesLabel.text = "\(unwrap(repo.openIssuesCount)) open issues"
+        getImage()
+    }
+
+    /// リポジトリ所有者の画像取得
+    func getImage() {
+        guard let searchRepositoryVC = searchRepositoryVC,
+              let selectedRowIndex = searchRepositoryVC.selectedRowindex
+        else {
+            return
+        }
+        let repo = searchRepositoryVC.repositories[selectedRowIndex]
+
+        titleLabel.text = repo.fullName
+
+        guard let imgURL = repo.owner.avatarURL
+        else {
+            return
+        }
+        URLSession.shared.dataTask(with: URL(string: imgURL)!) { [weak self] (data, res, err) in
+            guard let self = self,
+                  let data = data,
                   let image = UIImage(data: data)
             else {
                 return
@@ -63,21 +69,19 @@ class RepositoryDetailViewController: UIViewController {
         }.resume()
     }
 
-    private func castToString(_ target: Any?) -> String {
-        guard let target = target,
-              let targetString = target as? String
-        else {
+    /// String?のアンラップ
+    private func unwrap(_ target: String?) -> String {
+        guard let target = target else {
             return "-"
         }
-        return targetString
+        return target
     }
 
-    private func castToStringThoughInt(_ target: Any?) -> String {
-        guard let target = target,
-              let targetInt = target as? Int
-        else {
-            return "-"
+    /// Int?のアンラップ
+    private func unwrap(_ target: Int?) -> Int {
+        guard let target = target else {
+            return 0
         }
-        return String(targetInt)
+        return target
     }
 }
