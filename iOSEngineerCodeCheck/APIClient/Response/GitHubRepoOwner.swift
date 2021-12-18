@@ -9,5 +9,9 @@
 import Foundation
 
 struct GitHubRepoOwner: Decodable {
-    let avatarURL: String
+    let avatarURL: String?
+
+    enum CodingKeys: String, CodingKey {
+        case avatarURL = "avatar_url"
+    }
 }

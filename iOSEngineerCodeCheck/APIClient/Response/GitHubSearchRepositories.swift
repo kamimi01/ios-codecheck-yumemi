@@ -9,7 +9,7 @@
 import Foundation
 
 struct GitHubSearchRepositories: Decodable {
-    let items: [GitHubRepository]
+    let items: [GitHubRepository]?
 
     enum CodingKeys: String, CodingKey {
         case items
