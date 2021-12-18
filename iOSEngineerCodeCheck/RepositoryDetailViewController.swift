@@ -30,11 +30,11 @@ class RepositoryDetailViewController: UIViewController {
         }
         let repo = searchRepositoryVC.repositories[selectedRowIndex]
 
-        languageLabel.text = "Written in \(repo["language"] as? String ?? "")"
-        starsLabel.text = "\(repo["stargazers_count"] as? Int ?? 0) stars"
-        watchesLabel.text = "\(repo["wachers_count"] as? Int ?? 0) watchers"
-        forksLabel.text = "\(repo["forks_count"] as? Int ?? 0) forks"
-        issuesLabel.text = "\(repo["open_issues_count"] as? Int ?? 0) open issues"
+        languageLabel.text = "Written in \(castToString(repo["language"]))"
+        starsLabel.text = "\(castToStringThoughInt(repo["stargazers_count"])) stars"
+        watchesLabel.text = "\(castToStringThoughInt(repo["wachers_count"])) watchers"
+        forksLabel.text = "\(castToStringThoughInt(repo["forks_count"])) forks"
+        issuesLabel.text = "\(castToStringThoughInt(repo["open_issues_count"])) open issues"
         getImage()
     }
 
@@ -44,7 +44,7 @@ class RepositoryDetailViewController: UIViewController {
         }
         let repo = searchRepositoryVC.repositories[selectedRowIndex]
 
-        titleLabel.text = repo["full_name"] as? String
+        titleLabel.text = castToString(repo["full_name"])
 
         guard let owner = repo["owner"] as? [String: Any],
               let imgURL = owner["avatar_url"] as? String
@@ -52,10 +52,32 @@ class RepositoryDetailViewController: UIViewController {
             return
         }
         URLSession.shared.dataTask(with: URL(string: imgURL)!) { (data, res, err) in
-            let img = UIImage(data: data!)!
+            guard let data = data,
+                  let image = UIImage(data: data)
+            else {
+                return
+            }
             DispatchQueue.main.async {
-                self.imageView.image = img
+                self.imageView.image = image
             }
         }.resume()
+    }
+
+    private func castToString(_ target: Any?) -> String {
+        guard let target = target,
+              let targetString = target as? String
+        else {
+            return "-"
+        }
+        return targetString
+    }
+
+    private func castToStringThoughInt(_ target: Any?) -> String {
+        guard let target = target,
+              let targetInt = target as? Int
+        else {
+            return "-"
+        }
+        return String(targetInt)
     }
 }

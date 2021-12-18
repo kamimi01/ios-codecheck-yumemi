@@ -38,8 +38,10 @@ class SearchRepositoryViewController: UITableViewController {
         let url = "https://api.github.com/search/repositories?q=\(searchKeyword)"
         task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
             do {
-                guard let json = try JSONSerialization.jsonObject(with: data!) as? [String: Any],
-                      let items = json["items"] as? [[String: Any]] else {
+                guard let data = data,
+                      let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                      let items = json["items"] as? [[String: Any]]
+                else {
                     return
                 }
                 self.repositories = items
@@ -68,8 +70,8 @@ class SearchRepositoryViewController: UITableViewController {
 
         let cell = UITableViewCell()
         let repository = repositories[indexPath.row]
-        cell.textLabel?.text = repository["full_name"] as? String ?? ""
-        cell.detailTextLabel?.text = repository["language"] as? String ?? ""
+        cell.textLabel?.text = castToString(repository["full_name"])
+        cell.detailTextLabel?.text = castToString(repository["language"])
         cell.tag = indexPath.row
         return cell
     }
@@ -77,6 +79,15 @@ class SearchRepositoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRowindex = indexPath.row
         performSegue(withIdentifier: "Detail", sender: self)
+    }
+
+    private func castToString(_ target: Any?) -> String {
+        guard let target = target,
+              let targetString = target as? String
+        else {
+            return "-"
+        }
+        return targetString
     }
 }
 
