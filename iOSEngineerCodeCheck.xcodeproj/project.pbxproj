@@ -14,7 +14,7 @@
 		BFD945DF244DC5E80012785A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945DE244DC5E80012785A /* AppDelegate.swift */; };
 		BFD945E1244DC5E80012785A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945E0244DC5E80012785A /* SceneDelegate.swift */; };
 		BFD945E3244DC5E80012785A /* SearchRepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945E2244DC5E80012785A /* SearchRepositoryViewController.swift */; };
-		BFD945E6244DC5E80012785A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFD945E4244DC5E80012785A /* Main.storyboard */; };
+		BFD945E6244DC5E80012785A /* GitHubRepository.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFD945E4244DC5E80012785A /* GitHubRepository.storyboard */; };
 		BFD945E8244DC5EB0012785A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFD945E7244DC5EB0012785A /* Assets.xcassets */; };
 		BFD945EB244DC5EB0012785A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */; };
 		BFD945F6244DC5EB0012785A /* iOSEngineerCodeCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD945F5244DC5EB0012785A /* iOSEngineerCodeCheckTests.swift */; };
@@ -61,7 +61,7 @@
 		BFD945DE244DC5E80012785A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFD945E0244DC5E80012785A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BFD945E2244DC5E80012785A /* SearchRepositoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryViewController.swift; sourceTree = "<group>"; };
-		BFD945E5244DC5E80012785A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BFD945E5244DC5E80012785A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/GitHubRepository.storyboard; sourceTree = "<group>"; };
 		BFD945E7244DC5EB0012785A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BFD945EA244DC5EB0012785A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BFD945EC244DC5EB0012785A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -167,17 +167,15 @@
 		BFD945DD244DC5E80012785A /* iOSEngineerCodeCheck */ = {
 			isa = PBXGroup;
 			children = (
-				D431EDBC276DBFC800BFD60A /* Model */,
-				D431EDA2276D8D1500BFD60A /* APIClient */,
 				BFD945DE244DC5E80012785A /* AppDelegate.swift */,
 				BFD945E0244DC5E80012785A /* SceneDelegate.swift */,
-				BFD945E2244DC5E80012785A /* SearchRepositoryViewController.swift */,
-				BF0A658C244F2A3B00280FA6 /* RepositoryDetailViewController.swift */,
-				BFD945E4244DC5E80012785A /* Main.storyboard */,
-				BFD945E7244DC5EB0012785A /* Assets.xcassets */,
-				BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */,
-				BFD945EC244DC5EB0012785A /* Info.plist */,
+				D431EDBC276DBFC800BFD60A /* Model */,
+				D431EDC1276E06B900BFD60A /* View */,
+				D431EDC2276E0B5C00BFD60A /* Presenter */,
+				D431EDA2276D8D1500BFD60A /* APIClient */,
 				D431EDAC276D90FC00BFD60A /* Configuration.swift */,
+				BFD945EC244DC5EB0012785A /* Info.plist */,
+				BFD945E7244DC5EB0012785A /* Assets.xcassets */,
 			);
 			path = iOSEngineerCodeCheck;
 			sourceTree = "<group>";
@@ -206,7 +204,6 @@
 				D431EDA5276D8D7A00BFD60A /* APIError */,
 				D431EDA4276D8D7000BFD60A /* Response */,
 				D431EDA3276D8D4C00BFD60A /* Request */,
-				D431EDB6276D9C3200BFD60A /* Result.swift */,
 				D431EDB8276DACAF00BFD60A /* GitHubClient.swift */,
 			);
 			path = APIClient;
@@ -225,6 +222,7 @@
 		D431EDA4276D8D7000BFD60A /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				D431EDB6276D9C3200BFD60A /* Result.swift */,
 				D431EDB0276D980900BFD60A /* GitHubSearchRepositories.swift */,
 				D431EDB2276D99F900BFD60A /* GitHubRepository.swift */,
 				D431EDB4276D9B5600BFD60A /* GitHubRepoOwner.swift */,
@@ -248,6 +246,24 @@
 				D431EDBF276DC38200BFD60A /* RepositoryDetailModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D431EDC1276E06B900BFD60A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */,
+				BFD945E4244DC5E80012785A /* GitHubRepository.storyboard */,
+				BFD945E2244DC5E80012785A /* SearchRepositoryViewController.swift */,
+				BF0A658C244F2A3B00280FA6 /* RepositoryDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D431EDC2276E0B5C00BFD60A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,7 +376,7 @@
 			files = (
 				BFD945EB244DC5EB0012785A /* LaunchScreen.storyboard in Resources */,
 				BFD945E8244DC5EB0012785A /* Assets.xcassets in Resources */,
-				BFD945E6244DC5E80012785A /* Main.storyboard in Resources */,
+				BFD945E6244DC5E80012785A /* GitHubRepository.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,12 +540,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		BFD945E4244DC5E80012785A /* Main.storyboard */ = {
+		BFD945E4244DC5E80012785A /* GitHubRepository.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BFD945E5244DC5E80012785A /* Base */,
 			);
-			name = Main.storyboard;
+			name = GitHubRepository.storyboard;
 			sourceTree = "<group>";
 		};
 		BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */ = {
