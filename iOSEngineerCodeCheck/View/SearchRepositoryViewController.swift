@@ -13,7 +13,6 @@ class SearchRepositoryViewController: UITableViewController {
 
     var repositories: [GitHubRepository] = []
     var task: URLSessionTask?
-    var selectedRowindex: Int?
 
     private var presenter: SearchRepositoryPresenterInput!
     /// プレゼンタークラスをDIする
@@ -36,13 +35,6 @@ class SearchRepositoryViewController: UITableViewController {
         presenter.didTapSearchButton(keyword: searchBar.text)
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "Detail" {
-//            let detailView = segue.destination as? RepositoryDetailViewController
-//            detailView?.searchRepositoryVC = self
-//        }
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRepositories
     }
@@ -59,8 +51,7 @@ class SearchRepositoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRowindex = indexPath.row
-        performSegue(withIdentifier: "Detail", sender: self)
+        presenter.didTapSelectRow(at: indexPath)
     }
 }
 
@@ -82,7 +73,26 @@ extension SearchRepositoryViewController: SearchRepositoryPresenterOutput {
     }
 
     /// リポジトリ詳細画面へ遷移
-    func transitionToRepositoryDetail(searchRepositoryVC: UIViewController) {
-        // TODO: セグエを使うのをやめる
+    func transitionToRepositoryDetail(repository: GitHubRepository) {
+        guard let repositoryDetailVC = UIStoryboard(
+            name: "GitHubRepository",
+            bundle: nil
+        )
+                .instantiateViewController(
+                    withIdentifier: "RepositoryDetailViewController"
+                ) as? RepositoryDetailViewController
+        else {
+            return
+        }
+
+        let model = RepositoryDetailModel()
+        let presenter = RepositoryDetailPresenter(
+            repository: repository,
+            view: repositoryDetailVC,
+            model: model
+        )
+        repositoryDetailVC.inject(presenter: presenter)
+
+        navigationController?.pushViewController(repositoryDetailVC, animated: true)
     }
 }

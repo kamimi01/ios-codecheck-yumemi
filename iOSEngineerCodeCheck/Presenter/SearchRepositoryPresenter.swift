@@ -18,7 +18,7 @@ protocol SearchRepositoryPresenterInput {
 
 protocol SearchRepositoryPresenterOutput: AnyObject {
     func updateRepositories(_ repositories: [GitHubRepository])
-    func transitionToRepositoryDetail(searchRepositoryVC: UIViewController)
+    func transitionToRepositoryDetail(repository: GitHubRepository)
 }
 
 final class SearchRepositoryPresenter: SearchRepositoryPresenterInput {
@@ -34,10 +34,12 @@ final class SearchRepositoryPresenter: SearchRepositoryPresenterInput {
         self.model = model
     }
 
+    /// 検索にヒットしたリポジトリ数
     var numberOfRepositories: Int {
         return repositories.count
     }
 
+    /// 押下されたセルのリポジトリ情報の取得
     func repository(forRow row: Int) -> GitHubRepository? {
         guard row < repositories.count else {
             return nil
@@ -45,6 +47,7 @@ final class SearchRepositoryPresenter: SearchRepositoryPresenterInput {
         return repositories[row]
     }
 
+    /// 検索バーが押下された時の処理
     func didTapSearchButton(keyword: String?) {
         guard let keyword = keyword,
               keyword.count != 0
@@ -65,10 +68,11 @@ final class SearchRepositoryPresenter: SearchRepositoryPresenterInput {
         }
     }
 
+    /// セルが押下された時の処理
     func didTapSelectRow(at indexPath: IndexPath) {
         guard let repository = repository(forRow: indexPath.row) else {
             return
         }
-//        view.transitionToRepositoryDetail(searchRepositoryVC: <#T##UIViewController#>)
+        view.transitionToRepositoryDetail(repository: repository)
     }
 }

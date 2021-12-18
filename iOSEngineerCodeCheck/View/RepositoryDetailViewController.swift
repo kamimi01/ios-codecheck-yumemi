@@ -28,54 +28,23 @@ class RepositoryDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        presenter.viewDidLoad()
     }
 
     /// 初期表示時のデータ準備
     private func setup() {
-        guard let searchRepositoryVC = searchRepositoryVC,
-              let selectedRowIndex = searchRepositoryVC.selectedRowindex
-        else {
-            return
-        }
-        let repo = searchRepositoryVC.repositories[selectedRowIndex]
+        let repository = presenter.repository
 
-        languageLabel.text = "Written in \(unwrap(repo.language))"
-        starsLabel.text = "\(unwrap(repo.stargazersCount)) stars"
-        watchesLabel.text = "\(unwrap(repo.watchersCount)) watchers"
-        forksLabel.text = "\(unwrap(repo.forksCount)) forks"
-        issuesLabel.text = "\(unwrap(repo.openIssuesCount)) open issues"
-        getImage()
+        titleLabel.text = repository.fullName
+        languageLabel.text = "Written in \(unwrap(repository.language))"
+        starsLabel.text = "\(unwrap(repository.stargazersCount)) stars"
+        watchesLabel.text = "\(unwrap(repository.watchersCount)) watchers"
+        forksLabel.text = "\(unwrap(repository.forksCount)) forks"
+        issuesLabel.text = "\(unwrap(repository.openIssuesCount)) open issues"
     }
+}
 
-    /// リポジトリ所有者の画像取得
-    func getImage() {
-        guard let searchRepositoryVC = searchRepositoryVC,
-              let selectedRowIndex = searchRepositoryVC.selectedRowindex
-        else {
-            return
-        }
-        let repo = searchRepositoryVC.repositories[selectedRowIndex]
-
-        titleLabel.text = repo.fullName
-
-        guard let imgURL = repo.owner.avatarURL
-        else {
-            return
-        }
-
-        model.getImage(imageURL: imgURL) { [weak self] result in
-            guard let self = self,
-                  let result = result,
-                  let uiImage = UIImage(data: result)
-            else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.imageView.image = uiImage
-            }
-        }
-    }
-
+extension RepositoryDetailViewController {
     /// String?のアンラップ
     private func unwrap(_ target: String?) -> String {
         guard let target = target else {
@@ -90,5 +59,16 @@ class RepositoryDetailViewController: UIViewController {
             return 0
         }
         return target
+    }
+}
+
+extension RepositoryDetailViewController: RepositoryDetailPresenterOutput {
+    /// レポジトリ所有者の画像取得
+    func getImage(data: Data) {
+        guard let uiImage = UIImage(data: data)
+        else {
+            return
+        }
+        self.imageView.image = uiImage
     }
 }
