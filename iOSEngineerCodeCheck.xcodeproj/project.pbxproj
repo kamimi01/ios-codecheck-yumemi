@@ -32,6 +32,7 @@
 		D431EDBB276DADAA00BFD60A /* GitHubClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EDBA276DADAA00BFD60A /* GitHubClientError.swift */; };
 		D431EDBE276DBFE200BFD60A /* SearchRepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EDBD276DBFE200BFD60A /* SearchRepositoryModel.swift */; };
 		D431EDC0276DC38200BFD60A /* RepositoryDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EDBF276DC38200BFD60A /* RepositoryDetailModel.swift */; };
+		D431EDC4276E0BF400BFD60A /* SearchRepositoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D431EDC3276E0BF400BFD60A /* SearchRepositoryPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		D431EDBA276DADAA00BFD60A /* GitHubClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubClientError.swift; sourceTree = "<group>"; };
 		D431EDBD276DBFE200BFD60A /* SearchRepositoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryModel.swift; sourceTree = "<group>"; };
 		D431EDBF276DC38200BFD60A /* RepositoryDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailModel.swift; sourceTree = "<group>"; };
+		D431EDC3276E0BF400BFD60A /* SearchRepositoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryPresenter.swift; sourceTree = "<group>"; };
 		D7DCA3E7A094B3EC2C603CEC /* Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig"; path = "Target Support Files/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCD8786BD691BDEEB5701457 /* Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E012C9D6329F0920061019EB /* Pods-iOSEngineerCodeCheckTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSEngineerCodeCheckTests.debug.xcconfig"; path = "Target Support Files/Pods-iOSEngineerCodeCheckTests/Pods-iOSEngineerCodeCheckTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 		D431EDC2276E0B5C00BFD60A /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				D431EDC3276E0BF400BFD60A /* SearchRepositoryPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D431EDC4276E0BF400BFD60A /* SearchRepositoryPresenter.swift in Sources */,
 				D431EDB3276D99F900BFD60A /* GitHubRepository.swift in Sources */,
 				D431EDB7276D9C3200BFD60A /* Result.swift in Sources */,
 				D431EDC0276DC38200BFD60A /* RepositoryDetailModel.swift in Sources */,

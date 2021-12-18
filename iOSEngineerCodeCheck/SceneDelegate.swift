@@ -16,7 +16,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let scene = (scene as? UIWindowScene) else { return }
+
+        guard let searchRepositoryVC = UIStoryboard(name: "GitHubRepository", bundle: nil)
+                .instantiateViewController(
+                    withIdentifier: "SearchRepositoryViewController"
+                ) as? SearchRepositoryViewController else {
+            fatalError("fail to instantiate SearchRepositoryViewController")
+        }
+        let navigationController = UINavigationController(rootViewController: searchRepositoryVC)
+
+        let model = SearchRepositoryModel()
+        let presenter = SearchRepositoryPresenter(view: searchRepositoryVC, model: model)
+        searchRepositoryVC.inject(presenter: presenter)
+
+        window = UIWindow(windowScene: scene)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

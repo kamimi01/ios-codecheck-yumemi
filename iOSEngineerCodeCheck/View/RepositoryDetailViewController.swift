@@ -19,6 +19,11 @@ class RepositoryDetailViewController: UIViewController {
 
     weak var searchRepositoryVC: SearchRepositoryViewController?
     private let model = RepositoryDetailModel()
+    private var presenter: RepositoryDetailPresenterInput!
+    /// プレゼンタークラスをDIする
+    func inject(presenter: RepositoryDetailPresenterInput) {
+        self.presenter = presenter
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

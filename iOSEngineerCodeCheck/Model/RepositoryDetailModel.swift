@@ -8,14 +8,14 @@
 
 import Foundation
 
-protocol RepositoryDetailModelProtocol {
+protocol RepositoryDetailModelInput {
     func getImage(
         imageURL: String,
         completionHandler: @escaping(Data?) -> Void
     )
 }
 
-final class RepositoryDetailModel: RepositoryDetailModelProtocol {
+final class RepositoryDetailModel: RepositoryDetailModelInput {
     /// 画像取得
     func getImage(
         imageURL: String,

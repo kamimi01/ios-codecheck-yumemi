@@ -8,14 +8,14 @@
 
 import Foundation
 
-protocol SearchRepositoryModelProtocol {
+protocol SearchRepositoryModelInput {
     func fetchRepositories(
         searchKeyword: String,
         completionHandler: @escaping ([GitHubRepository]?) -> Void
     )
 }
 
-final class SearchRepositoryModel: SearchRepositoryModelProtocol {
+final class SearchRepositoryModel: SearchRepositoryModelInput {
     /// リポジトリ一覧の取得
     func fetchRepositories(
         searchKeyword: String,
