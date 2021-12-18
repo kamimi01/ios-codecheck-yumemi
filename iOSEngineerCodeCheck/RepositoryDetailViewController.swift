@@ -25,7 +25,10 @@ class RepositoryDetailViewController: UIViewController {
     }
 
     private func setup() {
-        let repo = searchRepositoryVC.repositories[searchRepositoryVC.selectedRowindex]
+        guard let selectedRowIndex = searchRepositoryVC.selectedRowindex else {
+            return
+        }
+        let repo = searchRepositoryVC.repositories[selectedRowIndex]
 
         languageLabel.text = "Written in \(repo["language"] as? String ?? "")"
         starsLabel.text = "\(repo["stargazers_count"] as? Int ?? 0) stars"
@@ -36,12 +39,16 @@ class RepositoryDetailViewController: UIViewController {
     }
 
     func getImage() {
-        let repo = searchRepositoryVC.repositories[searchRepositoryVC.selectedRowindex]
+        guard let selectedRowIndex = searchRepositoryVC.selectedRowindex else {
+            return
+        }
+        let repo = searchRepositoryVC.repositories[selectedRowIndex]
 
         titleLabel.text = repo["full_name"] as? String
 
         guard let owner = repo["owner"] as? [String: Any],
-              let imgURL = owner["avatar_url"] as? String else {
+              let imgURL = owner["avatar_url"] as? String
+        else {
             return
         }
         URLSession.shared.dataTask(with: URL(string: imgURL)!) { (data, res, err) in

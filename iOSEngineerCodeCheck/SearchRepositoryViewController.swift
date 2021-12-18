@@ -13,9 +13,8 @@ class SearchRepositoryViewController: UITableViewController {
 
     var repositories: [[String: Any]] = []
     var task: URLSessionTask?
-    var searchKeyword: String!
-    var url: String!
-    var selectedRowindex: Int!
+    var searchKeyword: String?
+    var selectedRowindex: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +27,15 @@ class SearchRepositoryViewController: UITableViewController {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchKeyword = searchBar.text!
-
-        if searchKeyword.count == 0 {
+        searchKeyword = searchBar.text
+        guard let searchKeyword = searchKeyword,
+              searchKeyword.count != 0
+        else {
             return
         }
 
         // GithubAPIでリポジトリのデータを取得
-        url = "https://api.github.com/search/repositories?q=\(searchKeyword!)"
+        let url = "https://api.github.com/search/repositories?q=\(searchKeyword)"
         task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
             do {
                 guard let json = try JSONSerialization.jsonObject(with: data!) as? [String: Any],
