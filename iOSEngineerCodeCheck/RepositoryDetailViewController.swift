@@ -18,6 +18,7 @@ class RepositoryDetailViewController: UIViewController {
     @IBOutlet weak private var issuesLabel: UILabel!
 
     weak var searchRepositoryVC: SearchRepositoryViewController?
+    private let model = RepositoryDetailModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,17 +57,18 @@ class RepositoryDetailViewController: UIViewController {
         else {
             return
         }
-        URLSession.shared.dataTask(with: URL(string: imgURL)!) { [weak self] (data, res, err) in
+
+        model.getImage(imageURL: imgURL) { [weak self] result in
             guard let self = self,
-                  let data = data,
-                  let image = UIImage(data: data)
+                  let result = result,
+                  let uiImage = UIImage(data: result)
             else {
                 return
             }
             DispatchQueue.main.async {
-                self.imageView.image = image
+                self.imageView.image = uiImage
             }
-        }.resume()
+        }
     }
 
     /// String?のアンラップ

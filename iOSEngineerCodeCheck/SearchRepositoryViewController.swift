@@ -16,11 +16,14 @@ class SearchRepositoryViewController: UITableViewController {
     var searchKeyword: String?
     var selectedRowindex: Int?
 
+    private let model = SearchRepositoryModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
 
+    /// 初期表示時のデータ準備
     private func setup() {
         searchBar.text = "GitHubのリポジトリを検索できるよー"
         searchBar.delegate = self
@@ -34,23 +37,15 @@ class SearchRepositoryViewController: UITableViewController {
             return
         }
 
-        // GithubAPIでリポジトリの一覧を取得
-        let client = GitHubClient()
-        let request = GitHubAPI.GitHubSearchRepo(keyword: searchKeyword)
-        client.send(request: request) { [weak self] result in
+        model.fetchRepositories(searchKeyword: searchKeyword) { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case let .success(response):
-                guard let items = response.items else {
-                    return
-                }
-                self.repositories = items
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            case let .failure(error):
-                // TODO: エラーのアラートを表示
-                print(error)
+            guard let result = result else {
+                // TODO: エラー処理を行う
+                return
+            }
+            self.repositories = result
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
     }
