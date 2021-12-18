@@ -36,10 +36,14 @@ class SearchRepositoryViewController: UITableViewController {
 
         // GithubAPIでリポジトリのデータを取得
         let url = "https://api.github.com/search/repositories?q=\(searchKeyword)"
-        task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, res, err) in
+        task = URLSession.shared.dataTask(with: URL(string: url)!) { [weak self] (data, res, err) in
+            guard let self = self,
+                  let data = data
+            else {
+                return
+            }
             do {
-                guard let data = data,
-                      let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                       let items = json["items"] as? [[String: Any]]
                 else {
                     return
@@ -57,8 +61,8 @@ class SearchRepositoryViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Detail" {
-            let dtl = segue.destination as? RepositoryDetailViewController
-            dtl?.searchRepositoryVC = self
+            let detailView = segue.destination as? RepositoryDetailViewController
+            detailView?.searchRepositoryVC = self
         }
     }
 

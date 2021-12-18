@@ -17,7 +17,7 @@ class RepositoryDetailViewController: UIViewController {
     @IBOutlet weak private var forksLabel: UILabel!
     @IBOutlet weak private var issuesLabel: UILabel!
 
-    var searchRepositoryVC: SearchRepositoryViewController!
+    weak var searchRepositoryVC: SearchRepositoryViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,9 @@ class RepositoryDetailViewController: UIViewController {
     }
 
     private func setup() {
-        guard let selectedRowIndex = searchRepositoryVC.selectedRowindex else {
+        guard let searchRepositoryVC = searchRepositoryVC,
+              let selectedRowIndex = searchRepositoryVC.selectedRowindex
+        else {
             return
         }
         let repo = searchRepositoryVC.repositories[selectedRowIndex]
@@ -39,7 +41,9 @@ class RepositoryDetailViewController: UIViewController {
     }
 
     func getImage() {
-        guard let selectedRowIndex = searchRepositoryVC.selectedRowindex else {
+        guard let searchRepositoryVC = searchRepositoryVC,
+              let selectedRowIndex = searchRepositoryVC.selectedRowindex
+        else {
             return
         }
         let repo = searchRepositoryVC.repositories[selectedRowIndex]
@@ -51,8 +55,9 @@ class RepositoryDetailViewController: UIViewController {
         else {
             return
         }
-        URLSession.shared.dataTask(with: URL(string: imgURL)!) { (data, res, err) in
-            guard let data = data,
+        URLSession.shared.dataTask(with: URL(string: imgURL)!) { [weak self] (data, res, err) in
+            guard let self = self,
+                  let data = data,
                   let image = UIImage(data: data)
             else {
                 return
