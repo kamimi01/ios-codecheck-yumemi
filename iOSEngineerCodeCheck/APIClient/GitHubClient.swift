@@ -14,6 +14,7 @@ class GitHubClient {
         let session = URLSession(configuration: configuration)
         return session
     }()
+    private var task: URLSessionTask?
 
     func send<Request: GitHubAPIRequest>(
         request: Request,
@@ -40,7 +41,13 @@ class GitHubClient {
                 )
             }
         }
+        self.task = task
 
         task.resume()
+    }
+
+    /// 処理中のタスクをキャンセルする
+    func cancel() {
+        task?.cancel()
     }
 }

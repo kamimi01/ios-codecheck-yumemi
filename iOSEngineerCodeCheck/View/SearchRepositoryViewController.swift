@@ -13,7 +13,6 @@ class SearchRepositoryViewController: UIViewController {
     @IBOutlet weak private var searchBar: UISearchBar!
 
     var repositories: [GitHubRepository] = []
-    var task: URLSessionTask?
 
     private var presenter: SearchRepositoryPresenterInput!
     /// プレゼンタークラスをDIする
@@ -69,7 +68,9 @@ extension SearchRepositoryViewController: UISearchBarDelegate {
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        task?.cancel()
+        if searchText.isEmpty {
+            presenter.didTapClearButton()
+        }
     }
 }
 
