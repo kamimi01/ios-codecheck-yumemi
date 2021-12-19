@@ -86,6 +86,17 @@ extension SearchRepositoryViewController: SearchRepositoryPresenterOutput {
         self.tableView.reloadData()
     }
 
+    /// リポジトリ一覧の取得に失敗した場合にアラートを表示
+    func showAPIError() {
+        let alert = UIAlertController(
+            title: "取得失敗",
+            message: "リポジトリ情報の取得に失敗しました。\nもう一度試すか、別のワードで検索してください。",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     /// リポジトリ詳細画面へ遷移
     func transitionToRepositoryDetail(repository: GitHubRepository) {
         guard let repositoryDetailVC = R.storyboard.repositoryDetail.repositoryDetailViewController()
