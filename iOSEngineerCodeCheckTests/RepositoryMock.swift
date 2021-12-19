@@ -25,4 +25,20 @@ extension GitHubRepository {
         )
         return repo
     }
+
+    static func mockNoImage() -> GitHubRepository {
+        let repoOwner = GitHubRepoOwner(
+            avatarURL: ""
+        )
+        let repo = GitHubRepository(
+            fullName: "kamimi01/ios-codecheck-yumemi",
+            language: "swift",
+            stargazersCount: 10,
+            watchersCount: 20,
+            forksCount: 30,
+            openIssuesCount: 40,
+            owner: repoOwner
+        )
+        return repo
+    }
 }
