@@ -3,3 +3,6 @@ excluded:
 - Podfile
 - Podfile.lock
 - R.generated.swift
+
+line_length:
+  warning: 150

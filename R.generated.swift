@@ -89,6 +89,30 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
+  /// This `R.segue` struct is generated, and contains static references to 1 view controllers.
+  struct segue {
+    /// This struct is generated for `SearchRepositoryViewController`, and contains static references to 1 segues.
+    struct searchRepositoryViewController {
+      /// Segue identifier `showRepositoryDetailView`.
+      static let showRepositoryDetailView: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, SearchRepositoryViewController, RepositoryDetailViewController> = Rswift.StoryboardSegueIdentifier(identifier: "showRepositoryDetailView")
+
+      #if os(iOS) || os(tvOS)
+      /// Optionally returns a typed version of segue `showRepositoryDetailView`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func showRepositoryDetailView(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, SearchRepositoryViewController, RepositoryDetailViewController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.searchRepositoryViewController.showRepositoryDetailView, segue: segue)
+      }
+      #endif
+
+      fileprivate init() {}
+    }
+
+    fileprivate init() {}
+  }
+  #endif
+
+  #if os(iOS) || os(tvOS)
   /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
   struct storyboard {
     /// Storyboard `LaunchScreen`.
@@ -169,6 +193,14 @@ struct R: Rswift.Validatable {
     static func repositoryTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> RepositoryTableViewCell? {
       return R.nib.repositoryTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? RepositoryTableViewCell
     }
+
+    fileprivate init() {}
+  }
+
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
+  struct reuseIdentifier {
+    /// Reuse identifier `repository`.
+    static let repository: Rswift.ReuseIdentifier<RepositoryTableViewCell> = Rswift.ReuseIdentifier(identifier: "repository")
 
     fileprivate init() {}
   }

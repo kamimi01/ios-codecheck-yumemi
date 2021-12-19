@@ -37,7 +37,12 @@ class GitHubClient {
                 }
             default:
                 fatalError(
-                    "Invalid response combination: \(String(describing: data)), \(String(describing: response)), \(String(describing: error))"
+                    """
+                    Invalid response combination:
+                    \(String(describing: data)),
+                    \(String(describing: response)),
+                    \(String(describing: error))
+                    """
                 )
             }
         }
