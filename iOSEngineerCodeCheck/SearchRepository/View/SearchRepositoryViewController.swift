@@ -33,7 +33,7 @@ class SearchRepositoryViewController: UIViewController {
         let nibName = R.nib.repositoryTableViewCell.name
         let nib = UINib(nibName: nibName, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: nibName)
-        searchBar.text = "GitHubのリポジトリを検索できるよー"
+        searchBar.text = "リポジトリ名"
         searchBar.delegate = self
     }
 
