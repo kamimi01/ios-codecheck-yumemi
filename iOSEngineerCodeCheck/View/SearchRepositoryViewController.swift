@@ -46,7 +46,7 @@ extension SearchRepositoryViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = UITableViewCell()
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Repository")
         if let repository = presenter.repository(forRow: indexPath.row) {
             cell.textLabel?.text = repository.fullName
             cell.detailTextLabel?.text = repository.language
