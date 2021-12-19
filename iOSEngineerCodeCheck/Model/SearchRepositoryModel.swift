@@ -13,15 +13,17 @@ protocol SearchRepositoryModelInput {
         searchKeyword: String,
         completionHandler: @escaping ([GitHubRepository]?) -> Void
     )
+    func cancel()
 }
 
 final class SearchRepositoryModel: SearchRepositoryModelInput {
+    private var client = GitHubClient()
+
     /// リポジトリ一覧の取得
     func fetchRepositories(
         searchKeyword: String,
         completionHandler: @escaping ([GitHubRepository]?) -> Void
     ) {
-        let client = GitHubClient()
         let request = GitHubAPI.GitHubSearchRepo(keyword: searchKeyword)
         client.send(request: request) { result in
             switch result {
@@ -35,5 +37,10 @@ final class SearchRepositoryModel: SearchRepositoryModelInput {
                 completionHandler(nil)
             }
         }
+    }
+
+    /// 取得処理のキャンセル
+    func cancel() {
+        client.cancel()
     }
 }

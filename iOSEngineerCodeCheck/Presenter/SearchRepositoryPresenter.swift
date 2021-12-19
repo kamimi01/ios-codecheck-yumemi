@@ -14,6 +14,7 @@ protocol SearchRepositoryPresenterInput {
     func repository(forRow row: Int) -> GitHubRepository?
     func didTapSearchButton(keyword: String?)
     func didTapSelectRow(at indexPath: IndexPath)
+    func didTapClearButton()
 }
 
 protocol SearchRepositoryPresenterOutput: AnyObject {
@@ -74,5 +75,10 @@ final class SearchRepositoryPresenter: SearchRepositoryPresenterInput {
             return
         }
         view.transitionToRepositoryDetail(repository: repository)
+    }
+
+    /// キャンセルボタンが押下された時の処理
+    func didTapClearButton() {
+        model.cancel()
     }
 }
