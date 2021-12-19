@@ -1,0 +1,11 @@
+excluded:
+- Pods/
+- Podfile
+- Podfile.lock
+- R.generated.swift
+
+line_length:
+  warning: 150
+
+identifier_name:
+  max_length: 60
