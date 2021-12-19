@@ -147,6 +147,35 @@ struct R: Rswift.Validatable {
   }
   #endif
 
+  /// This `R.id` struct is generated, and contains static references to accessibility identifiers.
+  struct id {
+    struct repositoryDetail {
+      /// Accessibility identifier `RepositoryDetailViewController_forkscount`.
+      static let repositoryDetailViewController_forkscount: String = "RepositoryDetailViewController_forkscount"
+      /// Accessibility identifier `RepositoryDetailViewController_issuescount`.
+      static let repositoryDetailViewController_issuescount: String = "RepositoryDetailViewController_issuescount"
+      /// Accessibility identifier `RepositoryDetailViewController_language`.
+      static let repositoryDetailViewController_language: String = "RepositoryDetailViewController_language"
+      /// Accessibility identifier `RepositoryDetailViewController_title`.
+      static let repositoryDetailViewController_title: String = "RepositoryDetailViewController_title"
+      /// Accessibility identifier `RepositoryDetailViewController_watcherscount`.
+      static let repositoryDetailViewController_watcherscount: String = "RepositoryDetailViewController_watcherscount"
+
+      fileprivate init() {}
+    }
+
+    struct repositoryTableViewCell {
+      /// Accessibility identifier `RepositoryTableViewCell_language`.
+      static let repositoryTableViewCell_language: String = "RepositoryTableViewCell_language"
+      /// Accessibility identifier `RepositoryTableViewCell_repoTitle`.
+      static let repositoryTableViewCell_repoTitle: String = "RepositoryTableViewCell_repoTitle"
+
+      fileprivate init() {}
+    }
+
+    fileprivate init() {}
+  }
+
   /// This `R.image` struct is generated, and contains static references to 1 images.
   struct image {
     /// Image `noImage`.

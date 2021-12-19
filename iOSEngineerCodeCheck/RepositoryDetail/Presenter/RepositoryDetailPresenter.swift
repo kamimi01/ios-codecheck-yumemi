@@ -39,18 +39,20 @@ class RepositoryDetailPresenter: RepositoryDetailPresenterInput {
 
     /// リポジトリ詳細画面の初期表示時の処理
     func viewDidLoad() {
-        guard let url = repositoryForPresenter.owner.avatarURL
+        guard let url = repositoryForPresenter.owner.avatarURL,
+              !url.isEmpty
         else {
+            DispatchQueue.main.async {
+                self.view.getImage(data: nil)
+            }
             return
         }
         model.getImage(imageURL: url) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            guard let result = result
+            guard let self = self,
+                  let result = result
             else {
                 DispatchQueue.main.async {
-                    self.view.getImage(data: nil)
+                    self?.view.getImage(data: nil)
                 }
                 return
             }
