@@ -25,7 +25,7 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="ixv-1m-fUU" customClass="RepositoryTableViewCell" customModule="iOSEngineerCodeCheck" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="repository" id="ixv-1m-fUU" customClass="RepositoryTableViewCell" customModule="iOSEngineerCodeCheck" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="88.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ixv-1m-fUU" id="f8a-4Y-ID0">
@@ -49,7 +49,7 @@
                     <connections>
                         <outlet property="searchBar" destination="Ofl-dp-1dw" id="Z8i-ee-FO0"/>
                         <outlet property="tableView" destination="5W8-fk-ZMt" id="60F-B8-7If"/>
-                        <segue destination="jaf-hD-LAi" kind="show" id="CSC-7B-qA8"/>
+                        <segue destination="jaf-hD-LAi" kind="show" identifier="showRepositoryDetailView" id="CSC-7B-qA8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

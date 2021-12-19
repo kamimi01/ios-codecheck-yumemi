@@ -14,6 +14,8 @@ final class GitHubAPI {
     struct GitHubSearchRepo: GitHubAPIRequest {
         let keyword: String
 
+        // - seealso: https://stackoverflow.com/questions/46766682/nesting-violation-types-should-be-nested-at-most-1-level-deep
+        // swiftlint:disable nesting
         typealias Response = GitHubSearchRepositories
 
         var method: HttpMethod {

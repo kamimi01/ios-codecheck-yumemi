@@ -18,10 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let scene = (scene as? UIWindowScene) else { return }
 
-        guard let searchRepositoryVC = UIStoryboard(name: "SearchRepository", bundle: nil)
-                .instantiateViewController(
-                    withIdentifier: "SearchRepositoryViewController"
-                ) as? SearchRepositoryViewController else {
+        guard let searchRepositoryVC = R.storyboard.searchRepository.searchRepositoryViewController()
+        else {
             fatalError("fail to instantiate SearchRepositoryViewController")
         }
         let navigationController = UINavigationController(rootViewController: searchRepositoryVC)

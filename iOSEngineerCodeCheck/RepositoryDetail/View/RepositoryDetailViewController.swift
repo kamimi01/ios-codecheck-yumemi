@@ -64,9 +64,22 @@ extension RepositoryDetailViewController {
 
 extension RepositoryDetailViewController: RepositoryDetailPresenterOutput {
     /// レポジトリ所有者の画像取得
-    func getImage(data: Data) {
-        guard let uiImage = UIImage(data: data)
-        else {
+    func getImage(data: Data?) {
+        var uiImage: UIImage? {
+            // 画像データが取得できなかった場合は、noImageの画像を表示
+            guard let data = data,
+                  let uiImage = UIImage(data: data)
+            else {
+                guard let noImage = UIImage(named: R.image.noImage.name)
+                else {
+                    return nil
+                }
+                return noImage
+            }
+            return uiImage
+        }
+
+        guard let uiImage = uiImage else {
             return
         }
         self.imageView.image = uiImage

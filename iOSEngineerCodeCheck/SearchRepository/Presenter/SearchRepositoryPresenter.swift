@@ -20,6 +20,7 @@ protocol SearchRepositoryPresenterInput {
 protocol SearchRepositoryPresenterOutput: AnyObject {
     func updateRepositories(_ repositories: [GitHubRepository])
     func transitionToRepositoryDetail(repository: GitHubRepository)
+    func showAPIError()
 }
 
 final class SearchRepositoryPresenter: SearchRepositoryPresenterInput {
@@ -58,13 +59,16 @@ final class SearchRepositoryPresenter: SearchRepositoryPresenterInput {
 
         model.fetchRepositories(searchKeyword: keyword) { [weak self] result in
             guard let self = self else { return }
-            guard let result = result else {
-                // TODO: エラー処理を行う
-                return
-            }
-            self.repositories = result
-            DispatchQueue.main.async {
-                self.view.updateRepositories(result)
+            switch result {
+            case let .success(response):
+                self.repositories = response
+                DispatchQueue.main.async {
+                    self.view.updateRepositories(response)
+                }
+            case .failure:
+                DispatchQueue.main.async {
+                    self.view.showAPIError()
+                }
             }
         }
     }

@@ -14,7 +14,7 @@ protocol RepositoryDetailPresenterInput {
 }
 
 protocol RepositoryDetailPresenterOutput: AnyObject {
-    func getImage(data: Data)
+    func getImage(data: Data?)
 }
 
 class RepositoryDetailPresenter: RepositoryDetailPresenterInput {
@@ -44,9 +44,14 @@ class RepositoryDetailPresenter: RepositoryDetailPresenterInput {
             return
         }
         model.getImage(imageURL: url) { [weak self] result in
-            guard let self = self,
-                  let result = result
+            guard let self = self else {
+                return
+            }
+            guard let result = result
             else {
+                DispatchQueue.main.async {
+                    self.view.getImage(data: nil)
+                }
                 return
             }
             DispatchQueue.main.async {

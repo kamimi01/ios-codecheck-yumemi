@@ -15,4 +15,6 @@ enum GitHubClientError: Error {
     case responseParseError(Error)
     // APIからエラーレスポンスを受け取った
     case apiError(GitHubAPIError)
+    // データが存在しない
+    case noData
 }

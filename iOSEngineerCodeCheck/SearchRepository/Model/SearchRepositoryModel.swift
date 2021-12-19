@@ -11,7 +11,7 @@ import Foundation
 protocol SearchRepositoryModelInput {
     func fetchRepositories(
         searchKeyword: String,
-        completionHandler: @escaping ([GitHubRepository]?) -> Void
+        completionHandler: @escaping (Result<[GitHubRepository], GitHubClientError>) -> Void
     )
     func cancel()
 }
@@ -22,19 +22,19 @@ final class SearchRepositoryModel: SearchRepositoryModelInput {
     /// リポジトリ一覧の取得
     func fetchRepositories(
         searchKeyword: String,
-        completionHandler: @escaping ([GitHubRepository]?) -> Void
+        completionHandler: @escaping (Result<[GitHubRepository], GitHubClientError>) -> Void
     ) {
         let request = GitHubAPI.GitHubSearchRepo(keyword: searchKeyword)
         client.send(request: request) { result in
             switch result {
             case let .success(response):
                 guard let items = response.items else {
-                    completionHandler(nil)
+                    completionHandler(.failure(.noData))
                     return
                 }
-                completionHandler(items)
+                completionHandler(.success(items))
             case let .failure(error):
-                completionHandler(nil)
+                completionHandler(.failure(error))
             }
         }
     }
