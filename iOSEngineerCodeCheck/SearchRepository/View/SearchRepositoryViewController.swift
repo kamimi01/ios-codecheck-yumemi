@@ -30,8 +30,9 @@ class SearchRepositoryViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         // xibの登録
-        let nib = UINib(nibName: "RepositoryTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "RepositoryTableViewCell")
+        let nibName = R.nib.repositoryTableViewCell.name
+        let nib = UINib(nibName: nibName, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: nibName)
         searchBar.text = "GitHubのリポジトリを検索できるよー"
         searchBar.delegate = self
     }
@@ -47,12 +48,10 @@ extension SearchRepositoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView
-                .dequeueReusableCell(
-                    withIdentifier: "RepositoryTableViewCell",
-                    for: indexPath
-                ) as? RepositoryTableViewCell
-        else {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: R.nib.repositoryTableViewCell.name,
+            for: indexPath
+        ) as? RepositoryTableViewCell else {
             return UITableViewCell()
         }
         if let repository = presenter.repository(forRow: indexPath.row) {
@@ -89,13 +88,7 @@ extension SearchRepositoryViewController: SearchRepositoryPresenterOutput {
 
     /// リポジトリ詳細画面へ遷移
     func transitionToRepositoryDetail(repository: GitHubRepository) {
-        guard let repositoryDetailVC = UIStoryboard(
-            name: "RepositoryDetail",
-            bundle: nil
-        )
-                .instantiateViewController(
-                    withIdentifier: "RepositoryDetailViewController"
-                ) as? RepositoryDetailViewController
+        guard let repositoryDetailVC = R.storyboard.repositoryDetail.repositoryDetailViewController()
         else {
             return
         }
