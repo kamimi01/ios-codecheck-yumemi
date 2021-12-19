@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let scene = (scene as? UIWindowScene) else { return }
 
-        guard let searchRepositoryVC = UIStoryboard(name: "GitHubRepository", bundle: nil)
+        guard let searchRepositoryVC = UIStoryboard(name: "SearchRepository", bundle: nil)
                 .instantiateViewController(
                     withIdentifier: "SearchRepositoryViewController"
                 ) as? SearchRepositoryViewController else {
