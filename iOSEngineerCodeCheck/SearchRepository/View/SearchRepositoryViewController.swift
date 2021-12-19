@@ -9,8 +9,8 @@
 import UIKit
 
 class SearchRepositoryViewController: UIViewController {
-    @IBOutlet private var tableView: UITableView!
-    @IBOutlet weak private var searchBar: UISearchBar!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var searchBar: UISearchBar!
 
     var repositories: [GitHubRepository] = []
 
@@ -29,6 +29,9 @@ class SearchRepositoryViewController: UIViewController {
     private func setup() {
         tableView.delegate = self
         tableView.dataSource = self
+        // xibの登録
+        let nib = UINib(nibName: "RepositoryTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "RepositoryTableViewCell")
         searchBar.text = "GitHubのリポジトリを検索できるよー"
         searchBar.delegate = self
     }
@@ -44,12 +47,16 @@ extension SearchRepositoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Repository")
+        guard let cell = tableView
+                .dequeueReusableCell(
+                    withIdentifier: "RepositoryTableViewCell",
+                    for: indexPath
+                ) as? RepositoryTableViewCell
+        else {
+            return UITableViewCell()
+        }
         if let repository = presenter.repository(forRow: indexPath.row) {
-            cell.textLabel?.text = repository.fullName
-            cell.detailTextLabel?.text = repository.language
-            cell.tag = indexPath.row
+            cell.configure(repository: repository)
         }
         return cell
     }
@@ -83,7 +90,7 @@ extension SearchRepositoryViewController: SearchRepositoryPresenterOutput {
     /// リポジトリ詳細画面へ遷移
     func transitionToRepositoryDetail(repository: GitHubRepository) {
         guard let repositoryDetailVC = UIStoryboard(
-            name: "GitHubRepository",
+            name: "RepositoryDetail",
             bundle: nil
         )
                 .instantiateViewController(
