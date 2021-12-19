@@ -10,6 +10,7 @@ import Foundation
 
 final class GitHubAPI {
     /// リポジトリ検索API
+    /// - seealso: https://docs.github.com/ja/rest/reference/search#search-repositories
     struct GitHubSearchRepo: GitHubAPIRequest {
         let keyword: String
 
