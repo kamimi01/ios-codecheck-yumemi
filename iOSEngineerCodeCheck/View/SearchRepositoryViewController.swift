@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SearchRepositoryViewController: UITableViewController {
+class SearchRepositoryViewController: UIViewController {
+    @IBOutlet private var tableView: UITableView!
     @IBOutlet weak private var searchBar: UISearchBar!
 
     var repositories: [GitHubRepository] = []
@@ -27,6 +28,8 @@ class SearchRepositoryViewController: UITableViewController {
 
     /// 初期表示時のデータ準備
     private func setup() {
+        tableView.delegate = self
+        tableView.dataSource = self
         searchBar.text = "GitHubのリポジトリを検索できるよー"
         searchBar.delegate = self
     }
@@ -34,14 +37,16 @@ class SearchRepositoryViewController: UITableViewController {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         presenter.didTapSearchButton(keyword: searchBar.text)
     }
+}
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension SearchRepositoryViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRepositories
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = UITableViewCell()
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Repository")
         if let repository = presenter.repository(forRow: indexPath.row) {
             cell.textLabel?.text = repository.fullName
             cell.detailTextLabel?.text = repository.language
@@ -49,8 +54,10 @@ class SearchRepositoryViewController: UITableViewController {
         }
         return cell
     }
+}
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension SearchRepositoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didTapSelectRow(at: indexPath)
     }
 }
