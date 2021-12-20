@@ -10,25 +10,64 @@ import SwiftUI
 
 struct RepositoryDetailView: View {
     var body: some View {
-        VStack(spacing: 10) {
-            Image(uiImage: UIImage())
-                .border(.yellow)
-            HStack(spacing: 60) {
-                VStack {
-                    Text("リポジトリ名")
-                }
-                .frame(maxWidth: .infinity)
-                VStack {
-                    Text("stars")
-                    Text("watchers")
-                    Text("forks")
-                    Text("issues")
-                }
-                .frame(maxWidth: .infinity)
-            }
-            .frame(maxWidth: .infinity)
-            .border(.red)
+        VStack(spacing: 20) {
+            image
+            repoTitle
+            starCount
+            repoDesctiption
+            countDetail
+            Spacer()
         }
+        .padding(.horizontal, 16)
+        .navigationBarTitle("詳細", displayMode: .inline)
+    }
+}
+
+extension RepositoryDetailView {
+    private var image: some View {
+        Image("noImage")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 200, height: 200)
+    }
+
+    private var repoTitle: some View {
+        Text("リポジトリ名")
+            .font(.system(size: 25))
+    }
+
+    private var starCount: some View {
+        HStack {
+            Image(systemName: "star")
+                .foregroundColor(.gray)
+            Text("10")
+                .font(.system(size: 17))
+        }
+    }
+
+    private var repoDesctiption: some View {
+        Text("説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明説明")
+            .font(.system(size: 17))
+    }
+
+    private var countDetail: some View {
+        HStack {
+            VStack {
+                Text("10")
+                Text("watchers")
+            }
+            Spacer()
+            VStack {
+                Text("10")
+                Text("forks")
+            }
+            Spacer()
+            VStack {
+                Text("10")
+                Text("issues")
+            }
+        }
+        .padding(.horizontal, 20)
     }
 }
 

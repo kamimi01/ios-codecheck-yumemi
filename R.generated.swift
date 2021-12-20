@@ -89,12 +89,10 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 1 storyboards.
   struct storyboard {
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
-    /// Storyboard `RepositoryDetail`.
-    static let repositoryDetail = _R.storyboard.repositoryDetail()
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
@@ -103,36 +101,9 @@ struct R: Rswift.Validatable {
     }
     #endif
 
-    #if os(iOS) || os(tvOS)
-    /// `UIStoryboard(name: "RepositoryDetail", bundle: ...)`
-    static func repositoryDetail(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.repositoryDetail)
-    }
-    #endif
-
     fileprivate init() {}
   }
   #endif
-
-  /// This `R.id` struct is generated, and contains static references to accessibility identifiers.
-  struct id {
-    struct repositoryDetail {
-      /// Accessibility identifier `RepositoryDetailViewController_forkscount`.
-      static let repositoryDetailViewController_forkscount: String = "RepositoryDetailViewController_forkscount"
-      /// Accessibility identifier `RepositoryDetailViewController_issuescount`.
-      static let repositoryDetailViewController_issuescount: String = "RepositoryDetailViewController_issuescount"
-      /// Accessibility identifier `RepositoryDetailViewController_language`.
-      static let repositoryDetailViewController_language: String = "RepositoryDetailViewController_language"
-      /// Accessibility identifier `RepositoryDetailViewController_title`.
-      static let repositoryDetailViewController_title: String = "RepositoryDetailViewController_title"
-      /// Accessibility identifier `RepositoryDetailViewController_watcherscount`.
-      static let repositoryDetailViewController_watcherscount: String = "RepositoryDetailViewController_watcherscount"
-
-      fileprivate init() {}
-    }
-
-    fileprivate init() {}
-  }
 
   /// This `R.image` struct is generated, and contains static references to 1 images.
   struct image {
@@ -187,9 +158,6 @@ struct _R: Rswift.Validatable {
       #if os(iOS) || os(tvOS)
       try launchScreen.validate()
       #endif
-      #if os(iOS) || os(tvOS)
-      try repositoryDetail.validate()
-      #endif
     }
 
     #if os(iOS) || os(tvOS)
@@ -202,28 +170,6 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
-      }
-
-      fileprivate init() {}
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    struct repositoryDetail: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = RepositoryDetailViewController
-
-      let bundle = R.hostingBundle
-      let name = "RepositoryDetail"
-      let repositoryDetailViewController = StoryboardViewControllerResource<RepositoryDetailViewController>(identifier: "RepositoryDetailViewController")
-
-      func repositoryDetailViewController(_: Void = ()) -> RepositoryDetailViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: repositoryDetailViewController)
-      }
-
-      static func validate() throws {
-        if #available(iOS 11.0, tvOS 11.0, *) {
-        }
-        if _R.storyboard.repositoryDetail().repositoryDetailViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'repositoryDetailViewController' could not be loaded from storyboard 'RepositoryDetail' as 'RepositoryDetailViewController'.") }
       }
 
       fileprivate init() {}

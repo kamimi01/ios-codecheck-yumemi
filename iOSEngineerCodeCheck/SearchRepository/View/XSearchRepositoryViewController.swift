@@ -99,19 +99,19 @@ extension XSearchRepositoryViewController: SearchRepositoryPresenterOutput {
 
     /// リポジトリ詳細画面へ遷移
     func transitionToRepositoryDetail(repository: GitHubRepository) {
-        guard let repositoryDetailVC = R.storyboard.repositoryDetail.repositoryDetailViewController()
-        else {
-            return
-        }
-
-        let model = RepositoryDetailModel()
-        let presenter = RepositoryDetailPresenter(
-            repository: repository,
-            view: repositoryDetailVC,
-            model: model
-        )
-        repositoryDetailVC.inject(presenter: presenter)
-
-        navigationController?.pushViewController(repositoryDetailVC, animated: true)
+//        guard let repositoryDetailVC = R.storyboard.repositoryDetail.repositoryDetailViewController()
+//        else {
+//            return
+//        }
+//
+//        let model = RepositoryDetailModel()
+//        let presenter = RepositoryDetailPresenter(
+//            repository: repository,
+//            view: repositoryDetailVC,
+//            model: model
+//        )
+//        repositoryDetailVC.inject(presenter: presenter)
+//
+//        navigationController?.pushViewController(repositoryDetailVC, animated: true)
     }
 }
