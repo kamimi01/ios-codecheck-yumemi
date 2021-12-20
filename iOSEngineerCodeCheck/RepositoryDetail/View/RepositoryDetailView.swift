@@ -69,22 +69,6 @@ extension RepositoryDetailView {
         }
         .padding(.horizontal, 20)
     }
-
-    /// String?のアンラップ
-    private func unwrap(_ target: String?) -> String {
-        guard let target = target else {
-            return ""
-        }
-        return target
-    }
-
-    /// Int?のアンラップ
-    private func unwrap(_ target: Int?) -> Int {
-        guard let target = target else {
-            return 0
-        }
-        return target
-    }
 }
 
 struct RepositoryDetailView_Previews: PreviewProvider {

@@ -35,6 +35,7 @@
 		D4F7ADA3276FF721009F0895 /* SearchRepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7ADA2276FF720009F0895 /* SearchRepositoryView.swift */; };
 		D4F7ADAF27709587009F0895 /* IOSEngineerCodeCheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7ADAE27709587009F0895 /* IOSEngineerCodeCheckApp.swift */; };
 		D4FE98F12770CAA10062A92A /* OwnerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE98F02770CAA10062A92A /* OwnerImageView.swift */; };
+		D4FE98F82770CDFB0062A92A /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE98F72770CDFB0062A92A /* View+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		D4F7ADA2276FF720009F0895 /* SearchRepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoryView.swift; sourceTree = "<group>"; };
 		D4F7ADAE27709587009F0895 /* IOSEngineerCodeCheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSEngineerCodeCheckApp.swift; sourceTree = "<group>"; };
 		D4FE98F02770CAA10062A92A /* OwnerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerImageView.swift; sourceTree = "<group>"; };
+		D4FE98F72770CDFB0062A92A /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		D7DCA3E7A094B3EC2C603CEC /* Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig"; path = "Target Support Files/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCD8786BD691BDEEB5701457 /* Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E012C9D6329F0920061019EB /* Pods-iOSEngineerCodeCheckTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSEngineerCodeCheckTests.debug.xcconfig"; path = "Target Support Files/Pods-iOSEngineerCodeCheckTests/Pods-iOSEngineerCodeCheckTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -174,14 +176,15 @@
 			isa = PBXGroup;
 			children = (
 				BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */,
+				D4F7ADAE27709587009F0895 /* IOSEngineerCodeCheckApp.swift */,
 				D4FE98ED2770CA740062A92A /* Common */,
 				D431EDBC276DBFC800BFD60A /* SearchRepository */,
 				D431EDC1276E06B900BFD60A /* RepositoryDetail */,
 				D431EDA2276D8D1500BFD60A /* APIClient */,
+				D4FE98F92770CE710062A92A /* Extension */,
 				D431EDAC276D90FC00BFD60A /* Configuration.swift */,
 				BFD945EC244DC5EB0012785A /* Info.plist */,
 				BFD945E7244DC5EB0012785A /* Assets.xcassets */,
-				D4F7ADAE27709587009F0895 /* IOSEngineerCodeCheckApp.swift */,
 			);
 			path = iOSEngineerCodeCheck;
 			sourceTree = "<group>";
@@ -305,6 +308,14 @@
 				D4FE98F02770CAA10062A92A /* OwnerImageView.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		D4FE98F92770CE710062A92A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D4FE98F72770CDFB0062A92A /* View+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -531,6 +542,7 @@
 				D431EDB3276D99F900BFD60A /* GitHubRepository.swift in Sources */,
 				D431EDB7276D9C3200BFD60A /* Result.swift in Sources */,
 				D4F7ADA1276FF4C2009F0895 /* RepositoryDetailView.swift in Sources */,
+				D4FE98F82770CDFB0062A92A /* View+Extension.swift in Sources */,
 				D4B3A4482770A49F00E992E1 /* RepositoryCellView.swift in Sources */,
 				D431EDB9276DACAF00BFD60A /* GitHubClient.swift in Sources */,
 				D431EDA9276D8E1600BFD60A /* GitHubAPI.swift in Sources */,
