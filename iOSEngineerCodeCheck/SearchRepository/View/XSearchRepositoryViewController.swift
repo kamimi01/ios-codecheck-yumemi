@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchRepositoryViewController: UIViewController {
+class XSearchRepositoryViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var searchBar: UISearchBar!
 
@@ -30,7 +30,7 @@ class SearchRepositoryViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         // xibの登録
-        let nibName = R.nib.repositoryTableViewCell.name
+        let nibName = ""
         let nib = UINib(nibName: nibName, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: nibName)
         searchBar.text = "リポジトリ名"
@@ -42,14 +42,14 @@ class SearchRepositoryViewController: UIViewController {
     }
 }
 
-extension SearchRepositoryViewController: UITableViewDataSource {
+extension XSearchRepositoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRepositories
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: R.nib.repositoryTableViewCell.name,
+            withIdentifier: "",
             for: indexPath
         ) as? RepositoryTableViewCell else {
             return UITableViewCell()
@@ -61,13 +61,13 @@ extension SearchRepositoryViewController: UITableViewDataSource {
     }
 }
 
-extension SearchRepositoryViewController: UITableViewDelegate {
+extension XSearchRepositoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didTapSelectRow(at: indexPath)
     }
 }
 
-extension SearchRepositoryViewController: UISearchBarDelegate {
+extension XSearchRepositoryViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.text = ""
         return true
@@ -80,7 +80,7 @@ extension SearchRepositoryViewController: UISearchBarDelegate {
     }
 }
 
-extension SearchRepositoryViewController: SearchRepositoryPresenterOutput {
+extension XSearchRepositoryViewController: SearchRepositoryPresenterOutput {
     /// リポジトリ一覧のViewを更新
     func updateRepositories(_ repositories: [GitHubRepository]) {
         self.tableView.reloadData()

@@ -89,38 +89,12 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.segue` struct is generated, and contains static references to 1 view controllers.
-  struct segue {
-    /// This struct is generated for `SearchRepositoryViewController`, and contains static references to 1 segues.
-    struct searchRepositoryViewController {
-      /// Segue identifier `showRepositoryDetailView`.
-      static let showRepositoryDetailView: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, SearchRepositoryViewController, RepositoryDetailViewController> = Rswift.StoryboardSegueIdentifier(identifier: "showRepositoryDetailView")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `showRepositoryDetailView`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func showRepositoryDetailView(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, SearchRepositoryViewController, RepositoryDetailViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.searchRepositoryViewController.showRepositoryDetailView, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
-    }
-
-    fileprivate init() {}
-  }
-  #endif
-
-  #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
   struct storyboard {
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `RepositoryDetail`.
     static let repositoryDetail = _R.storyboard.repositoryDetail()
-    /// Storyboard `SearchRepository`.
-    static let searchRepository = _R.storyboard.searchRepository()
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
@@ -133,13 +107,6 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "RepositoryDetail", bundle: ...)`
     static func repositoryDetail(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.repositoryDetail)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIStoryboard(name: "SearchRepository", bundle: ...)`
-    static func searchRepository(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.searchRepository)
     }
     #endif
 
@@ -160,15 +127,6 @@ struct R: Rswift.Validatable {
       static let repositoryDetailViewController_title: String = "RepositoryDetailViewController_title"
       /// Accessibility identifier `RepositoryDetailViewController_watcherscount`.
       static let repositoryDetailViewController_watcherscount: String = "RepositoryDetailViewController_watcherscount"
-
-      fileprivate init() {}
-    }
-
-    struct repositoryTableViewCell {
-      /// Accessibility identifier `RepositoryTableViewCell_language`.
-      static let repositoryTableViewCell_language: String = "RepositoryTableViewCell_language"
-      /// Accessibility identifier `RepositoryTableViewCell_repoTitle`.
-      static let repositoryTableViewCell_repoTitle: String = "RepositoryTableViewCell_repoTitle"
 
       fileprivate init() {}
     }
@@ -195,56 +153,10 @@ struct R: Rswift.Validatable {
   struct info {
     struct uiApplicationSceneManifest {
       static let _key = "UIApplicationSceneManifest"
-      static let uiApplicationSupportsMultipleScenes = false
-
-      struct uiSceneConfigurations {
-        static let _key = "UISceneConfigurations"
-
-        struct uiWindowSceneSessionRoleApplication {
-          struct defaultConfiguration {
-            static let _key = "Default Configuration"
-            static let uiSceneConfigurationName = infoPlistString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication", "Default Configuration"], key: "UISceneConfigurationName") ?? "Default Configuration"
-            static let uiSceneDelegateClassName = infoPlistString(path: ["UIApplicationSceneManifest", "UISceneConfigurations", "UIWindowSceneSessionRoleApplication", "Default Configuration"], key: "UISceneDelegateClassName") ?? "$(PRODUCT_MODULE_NAME).SceneDelegate"
-
-            fileprivate init() {}
-          }
-
-          fileprivate init() {}
-        }
-
-        fileprivate init() {}
-      }
+      static let uiApplicationSupportsMultipleScenes = true
 
       fileprivate init() {}
     }
-
-    fileprivate init() {}
-  }
-
-  /// This `R.nib` struct is generated, and contains static references to 1 nibs.
-  struct nib {
-    /// Nib `RepositoryTableViewCell`.
-    static let repositoryTableViewCell = _R.nib._RepositoryTableViewCell()
-
-    #if os(iOS) || os(tvOS)
-    /// `UINib(name: "RepositoryTableViewCell", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.repositoryTableViewCell) instead")
-    static func repositoryTableViewCell(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.repositoryTableViewCell)
-    }
-    #endif
-
-    static func repositoryTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> RepositoryTableViewCell? {
-      return R.nib.repositoryTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? RepositoryTableViewCell
-    }
-
-    fileprivate init() {}
-  }
-
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
-  struct reuseIdentifier {
-    /// Reuse identifier `repository`.
-    static let repository: Rswift.ReuseIdentifier<RepositoryTableViewCell> = Rswift.ReuseIdentifier(identifier: "repository")
 
     fileprivate init() {}
   }
@@ -270,23 +182,6 @@ struct _R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  struct nib {
-    struct _RepositoryTableViewCell: Rswift.NibResourceType {
-      let bundle = R.hostingBundle
-      let name = "RepositoryTableViewCell"
-
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> RepositoryTableViewCell? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? RepositoryTableViewCell
-      }
-
-      fileprivate init() {}
-    }
-
-    fileprivate init() {}
-  }
-  #endif
-
-  #if os(iOS) || os(tvOS)
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
@@ -294,9 +189,6 @@ struct _R: Rswift.Validatable {
       #endif
       #if os(iOS) || os(tvOS)
       try repositoryDetail.validate()
-      #endif
-      #if os(iOS) || os(tvOS)
-      try searchRepository.validate()
       #endif
     }
 
@@ -332,28 +224,6 @@ struct _R: Rswift.Validatable {
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
         if _R.storyboard.repositoryDetail().repositoryDetailViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'repositoryDetailViewController' could not be loaded from storyboard 'RepositoryDetail' as 'RepositoryDetailViewController'.") }
-      }
-
-      fileprivate init() {}
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    struct searchRepository: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIKit.UINavigationController
-
-      let bundle = R.hostingBundle
-      let name = "SearchRepository"
-      let searchRepositoryViewController = StoryboardViewControllerResource<SearchRepositoryViewController>(identifier: "SearchRepositoryViewController")
-
-      func searchRepositoryViewController(_: Void = ()) -> SearchRepositoryViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: searchRepositoryViewController)
-      }
-
-      static func validate() throws {
-        if #available(iOS 11.0, tvOS 11.0, *) {
-        }
-        if _R.storyboard.searchRepository().searchRepositoryViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'searchRepositoryViewController' could not be loaded from storyboard 'SearchRepository' as 'SearchRepositoryViewController'.") }
       }
 
       fileprivate init() {}

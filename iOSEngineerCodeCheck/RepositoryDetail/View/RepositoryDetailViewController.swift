@@ -17,7 +17,7 @@ class RepositoryDetailViewController: UIViewController {
     @IBOutlet weak private var forksLabel: UILabel!
     @IBOutlet weak private var issuesLabel: UILabel!
 
-    weak var searchRepositoryVC: SearchRepositoryViewController?
+    weak var searchRepositoryVC: XSearchRepositoryViewController?
     private let model = RepositoryDetailModel()
     private var presenter: RepositoryDetailPresenterInput!
     /// プレゼンタークラスをDIする
