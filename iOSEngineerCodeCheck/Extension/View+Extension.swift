@@ -24,4 +24,8 @@ extension View {
         }
         return target
     }
+
+    func customProgressView(_ isShownProgressView: Binding<Bool>) -> some View {
+        self.modifier(CustomProgressView(isShownProgressView: isShownProgressView))
+    }
 }

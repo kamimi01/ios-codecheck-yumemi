@@ -53,6 +53,7 @@ struct SearchRepositoryView: View {
             }
             .navigationBarTitle("検索", displayMode: .inline)
         }
+        .customProgressView($viewModel.isShownProgressView)
     }
 }
 

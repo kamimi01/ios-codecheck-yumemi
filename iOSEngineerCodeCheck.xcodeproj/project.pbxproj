@@ -36,6 +36,7 @@
 		D4F7ADAF27709587009F0895 /* IOSEngineerCodeCheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F7ADAE27709587009F0895 /* IOSEngineerCodeCheckApp.swift */; };
 		D4FE98F12770CAA10062A92A /* OwnerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE98F02770CAA10062A92A /* OwnerImageView.swift */; };
 		D4FE98F82770CDFB0062A92A /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE98F72770CDFB0062A92A /* View+Extension.swift */; };
+		D4FE98FE2770D0370062A92A /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FE98FD2770D0370062A92A /* CustomProgressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		D4F7ADAE27709587009F0895 /* IOSEngineerCodeCheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSEngineerCodeCheckApp.swift; sourceTree = "<group>"; };
 		D4FE98F02770CAA10062A92A /* OwnerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerImageView.swift; sourceTree = "<group>"; };
 		D4FE98F72770CDFB0062A92A /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		D4FE98FD2770D0370062A92A /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		D7DCA3E7A094B3EC2C603CEC /* Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig"; path = "Target Support Files/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests/Pods-iOSEngineerCodeCheck-iOSEngineerCodeCheckUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCD8786BD691BDEEB5701457 /* Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSEngineerCodeCheck_iOSEngineerCodeCheckUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E012C9D6329F0920061019EB /* Pods-iOSEngineerCodeCheckTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSEngineerCodeCheckTests.debug.xcconfig"; path = "Target Support Files/Pods-iOSEngineerCodeCheckTests/Pods-iOSEngineerCodeCheckTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -177,7 +179,7 @@
 			children = (
 				BFD945E9244DC5EB0012785A /* LaunchScreen.storyboard */,
 				D4F7ADAE27709587009F0895 /* IOSEngineerCodeCheckApp.swift */,
-				D4FE98ED2770CA740062A92A /* Common */,
+				D4FE98FA2770CF140062A92A /* Component */,
 				D431EDBC276DBFC800BFD60A /* SearchRepository */,
 				D431EDC1276E06B900BFD60A /* RepositoryDetail */,
 				D431EDA2276D8D1500BFD60A /* APIClient */,
@@ -302,20 +304,21 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		D4FE98ED2770CA740062A92A /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				D4FE98F02770CAA10062A92A /* OwnerImageView.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		D4FE98F92770CE710062A92A /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				D4FE98F72770CDFB0062A92A /* View+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		D4FE98FA2770CF140062A92A /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D4FE98F02770CAA10062A92A /* OwnerImageView.swift */,
+				D4FE98FD2770D0370062A92A /* CustomProgressView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -557,6 +560,7 @@
 				D431EDB5276D9B5600BFD60A /* GitHubRepoOwner.swift in Sources */,
 				D431EDAD276D90FC00BFD60A /* Configuration.swift in Sources */,
 				D431EDBE276DBFE200BFD60A /* SearchRepositoryModel.swift in Sources */,
+				D4FE98FE2770D0370062A92A /* CustomProgressView.swift in Sources */,
 				D431EDAF276D978300BFD60A /* GitHubAPIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

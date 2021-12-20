@@ -13,6 +13,7 @@ class SearchRepositoryViewModel: ObservableObject {
     @Published var repositories = [GitHubRepository]()
     @Published var isShownErrorAlert = false
     @Published var imageData = [String: Data?]()
+    @Published var isShownProgressView = false
 
     private var model: SearchRepositoryModelInput
 
@@ -26,17 +27,20 @@ class SearchRepositoryViewModel: ObservableObject {
             return
         }
 
+        isShownProgressView = true
         model.fetchRepositories(searchKeyword: keyword) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(response):
                 DispatchQueue.main.async {
                     self.repositories = response
+                    self.isShownProgressView = false
                 }
                 self.getImage(repositories: response)
             case .failure:
                 DispatchQueue.main.async {
                     self.isShownErrorAlert.toggle()
+                    self.isShownProgressView = false
                 }
             }
         }
