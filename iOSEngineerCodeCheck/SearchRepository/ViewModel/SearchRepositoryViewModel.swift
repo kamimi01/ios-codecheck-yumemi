@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol SearchRepositoryViewModelProtocol {
-    
-}
-
 class SearchRepositoryViewModel: ObservableObject {
     @Published var keyword = ""
     @Published var repositories = [GitHubRepository]()
