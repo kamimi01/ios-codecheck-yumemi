@@ -30,20 +30,7 @@ struct RepositoryCellView: View {
 
 extension RepositoryCellView {
     private var image: some View {
-        Group {
-            if let data = imageData,
-               let uiImage = UIImage(data: data) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 50, height: 50)
-            } else {
-                Image("noImage")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 50, height: 50)
-            }
-        }
+        OwnerImageView(imageSize: .small, data: imageData)
     }
 
     private var repoTitle: some View {

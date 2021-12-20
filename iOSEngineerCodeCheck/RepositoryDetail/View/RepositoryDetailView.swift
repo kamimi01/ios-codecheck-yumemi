@@ -28,20 +28,7 @@ struct RepositoryDetailView: View {
 
 extension RepositoryDetailView {
     private var image: some View {
-        Group {
-            if let data = imageData,
-               let uiImage = UIImage(data: data) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 200)
-            } else {
-                Image("noImage")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 200)
-            }
-        }
+        OwnerImageView(imageSize: .big, data: imageData)
     }
 
     private var repoTitle: some View {
