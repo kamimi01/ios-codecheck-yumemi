@@ -9,24 +9,48 @@
 import SwiftUI
 
 struct SearchRepositoryView: View {
-    @State private var inputText = ""
-    @State private var tmpList = [1,2,3,4,5,6]
+    @ObservedObject private var viewModel = SearchRepositoryViewModel()
+    @Environment(\.isSearching) var isSearching
 
     var body: some View {
         NavigationView {
             VStack {
-                List(tmpList, id: \.self) { num in
-                    NavigationLink(destination: RepositoryDetailView()) {
-                        RepositoryCellView()
+                List(0..<viewModel.repositories.count, id: \.self) { index in
+                    NavigationLink(destination: RepositoryDetailView(
+                        repository: viewModel.repositories[index],
+                        imageData: viewModel.imageData[viewModel.repositories[index].uuid] as? Data
+                    )) {
+                        RepositoryCellView(
+                            repository: viewModel.repositories[index],
+                            imageData: viewModel.imageData[viewModel.repositories[index].uuid] as? Data
+                        )
                     }
                 }
                 .listStyle(PlainListStyle())
             }
             .searchable(
-                text: $inputText,
+                text: $viewModel.keyword,
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "リポジトリ名"
             )
+            .onSubmit(of: .search) {
+                viewModel.didTapSearchButton()
+            }
+            .alert("取得失敗", isPresented: $viewModel.isShownErrorAlert) {
+                // do nothing
+            } message: {
+                Text("リポジトリ情報の取得に失敗しました。\nもう一度試すか、別のワードで検索してください")
+            }
+            .onChange(of: viewModel.keyword) { newValue in
+                if newValue.isEmpty {
+                    viewModel.didTapClearButton()
+                }
+            }
+            .onChange(of: isSearching) { newValue in
+                if newValue {
+                    print("テスト")
+                }
+            }
             .navigationBarTitle("検索", displayMode: .inline)
         }
     }

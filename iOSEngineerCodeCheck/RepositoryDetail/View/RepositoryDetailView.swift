@@ -1,5 +1,5 @@
 //
-//  RepositoryCellView.swift
+//  RepositoryDetail.swift
 //  iOSEngineerCodeCheck
 //
 //  Created by Mika Urakawa on 2021/12/20.
@@ -8,27 +8,25 @@
 
 import SwiftUI
 
-struct RepositoryCellView: View {
+struct RepositoryDetailView: View {
     var repository: GitHubRepository
     var imageData: Data?
 
     var body: some View {
-        HStack(spacing: 10) {
+        VStack(spacing: 20) {
             image
-            VStack(alignment: .leading, spacing: 10) {
-                repoTitle
-                HStack {
-                    language
-                    Spacer()
-                    starCount
-                }
-            }
+            repoTitle
+            starCount
+            repoDesctiption
+            countDetail
+            Spacer()
         }
-        .padding(.vertical, 10)
+        .padding(.horizontal, 16)
+        .navigationBarTitle("詳細", displayMode: .inline)
     }
 }
 
-extension RepositoryCellView {
+extension RepositoryDetailView {
     private var image: some View {
         Group {
             if let data = imageData,
@@ -36,33 +34,53 @@ extension RepositoryCellView {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 50, height: 50)
+                    .frame(width: 200, height: 200)
             } else {
                 Image("noImage")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 50, height: 50)
+                    .frame(width: 200, height: 200)
             }
         }
     }
 
     private var repoTitle: some View {
         Text(unwrap(repository.fullName))
-            .font(.system(size: 20, weight: .semibold))
-    }
-
-    private var language: some View {
-        Text(unwrap(repository.language))
-            .font(.system(size: 17))
+            .font(.system(size: 25))
     }
 
     private var starCount: some View {
-        HStack(spacing: 5) {
+        HStack {
             Image(systemName: "star")
                 .foregroundColor(.gray)
             Text("\(unwrap(repository.stargazersCount))")
                 .font(.system(size: 17))
         }
+    }
+
+    private var repoDesctiption: some View {
+        Text(unwrap(repository.description))
+            .font(.system(size: 17))
+    }
+
+    private var countDetail: some View {
+        HStack {
+            VStack {
+                Text("\(unwrap(repository.watchersCount))")
+                Text("watchers")
+            }
+            Spacer()
+            VStack {
+                Text("\(unwrap(repository.forksCount))")
+                Text("forks")
+            }
+            Spacer()
+            VStack {
+                Text("\(unwrap(repository.openIssuesCount))")
+                Text("issues")
+            }
+        }
+        .padding(.horizontal, 20)
     }
 
     /// String?のアンラップ
@@ -82,7 +100,7 @@ extension RepositoryCellView {
     }
 }
 
-struct RepositoryCellView_Previews: PreviewProvider {
+struct RepositoryDetailView_Previews: PreviewProvider {
     static let stubOwner = GitHubRepoOwner(avatarURL: "https://example.com")
     static let stubRepo = GitHubRepository(
         fullName: "リポジトリ",
@@ -96,6 +114,6 @@ struct RepositoryCellView_Previews: PreviewProvider {
     )
 
     static var previews: some View {
-        RepositoryCellView(repository: stubRepo)
+        RepositoryDetailView(repository: stubRepo)
     }
 }

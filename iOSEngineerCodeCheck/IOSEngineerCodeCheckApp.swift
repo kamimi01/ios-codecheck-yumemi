@@ -12,7 +12,6 @@ import SwiftUI
 struct IOSEngineerCodeCheckApp: App {
     var body: some Scene {
         WindowGroup {
-//            Text("テストよー")
             SearchRepositoryView()
         }
     }
