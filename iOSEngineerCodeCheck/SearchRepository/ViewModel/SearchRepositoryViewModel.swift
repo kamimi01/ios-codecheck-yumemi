@@ -8,7 +8,17 @@
 
 import Foundation
 
-class SearchRepositoryViewModel: ObservableObject {
+protocol SearchRepositoryViewModelProtocol: ObservableObject {
+    var keyword: String { get set }
+    var repositories: [GitHubRepository] { get }
+    var isShownErrorAlert: Bool { get set }
+    var imageData: [String: Data?] { get }
+    var isShownProgressView: Bool { get set }
+    func didTapSearchButton()
+    func didTapClearButton()
+}
+
+class SearchRepositoryViewModel: SearchRepositoryViewModelProtocol {
     @Published var keyword = ""
     @Published var repositories = [GitHubRepository]()
     @Published var isShownErrorAlert = false

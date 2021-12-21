@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct SearchRepositoryView: View {
-    @ObservedObject private var viewModel = SearchRepositoryViewModel()
+struct SearchRepositoryView<ViewModel: SearchRepositoryViewModelProtocol>: View {
+    @ObservedObject var viewModel: ViewModel
     @Environment(\.isSearching) var isSearching
 
     var body: some View {
@@ -59,6 +59,6 @@ struct SearchRepositoryView: View {
 
 struct SearchRepository_Previews: PreviewProvider {
     static var previews: some View {
-        SearchRepositoryView()
+        SearchRepositoryView(viewModel: SearchRepositoryViewModel())
     }
 }
