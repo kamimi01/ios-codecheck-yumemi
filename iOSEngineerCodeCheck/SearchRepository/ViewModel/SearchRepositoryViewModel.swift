@@ -14,8 +14,10 @@ protocol SearchRepositoryViewModelProtocol: ObservableObject {
     var isShownErrorAlert: Bool { get set }
     var imageData: [String: Data?] { get }
     var isShownProgressView: Bool { get set }
+    var orderType: OrderType { get set }
     func didTapSearchButton()
     func didTapClearButton()
+    func didTapOrderButton(_ type: OrderType)
 }
 
 class SearchRepositoryViewModel: SearchRepositoryViewModelProtocol {
@@ -24,6 +26,7 @@ class SearchRepositoryViewModel: SearchRepositoryViewModelProtocol {
     @Published var isShownErrorAlert = false
     @Published var imageData = [String: Data?]()
     @Published var isShownProgressView = false
+    @Published var orderType = OrderType.star
 
     private var model: SearchRepositoryModelInput
 
@@ -44,6 +47,7 @@ class SearchRepositoryViewModel: SearchRepositoryViewModelProtocol {
             case let .success(response):
                 DispatchQueue.main.async {
                     self.repositories = response
+                    self.sort(.star)
                     self.isShownProgressView = false
                 }
                 self.getImage(repositories: response)
@@ -77,5 +81,34 @@ class SearchRepositoryViewModel: SearchRepositoryViewModelProtocol {
     /// キャンセルボタンが押下された時の処理
     func didTapClearButton() {
         model.cancel()
+    }
+
+    /// ソートボタンが押下された時の処理
+    func didTapOrderButton(_ type: OrderType) {
+        isShownProgressView = true
+        sort(type)
+        isShownProgressView = false
+    }
+
+    private func sort(_ type: OrderType) {
+        orderType = type
+        switch type {
+        case .star:
+            repositories.sort {
+                $0.stargazersCount ?? 0 > $1.stargazersCount ?? 0
+            }
+        case .fork:
+            repositories.sort {
+                $0.forksCount ?? 0 > $1.forksCount ?? 0
+            }
+        case .watcher:
+            repositories.sort {
+                $0.watchersCount ?? 0 > $1.watchersCount ?? 0
+            }
+        case .issue:
+            repositories.sort {
+                $0.openIssuesCount ?? 0 > $1.openIssuesCount ?? 0
+            }
+        }
     }
 }
