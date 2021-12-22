@@ -90,7 +90,43 @@ struct SearchRepository_Previews: PreviewProvider {
         }
     }
 
+    class SearchRepositoryViewModelLoadingMock: SearchRepositoryViewModelProtocol {
+        @Published var keyword = ""
+        @Published var isShownErrorAlert = false
+        @Published var imageData: [String: Data?] = [:]
+        @Published var isShownProgressView = true
+        @Published var repositories = [GitHubRepository]()
+
+        init() {
+            let stubOwner = GitHubRepoOwner(avatarURL: "https://example.com")
+            self.repositories = [
+                GitHubRepository(
+                    fullName: "リポジトリ",
+                    language: "Swift",
+                    description: "詳細",
+                    stargazersCount: 10,
+                    watchersCount: 20,
+                    forksCount: 30,
+                    openIssuesCount: 40,
+                    owner: stubOwner
+                )
+            ]
+        }
+
+        func didTapSearchButton() {
+            print("検索ボタンがタップされた")
+        }
+
+        func didTapClearButton() {
+            print("クリアボタンがタップされた")
+        }
+    }
+
     static var previews: some View {
-        SearchRepositoryView(viewModel: SearchRepositoryViewModelMock())
+        Group {
+            SearchRepositoryView(viewModel: SearchRepositoryViewModelMock())
+
+            SearchRepositoryView(viewModel: SearchRepositoryViewModelLoadingMock())
+        }
     }
 }

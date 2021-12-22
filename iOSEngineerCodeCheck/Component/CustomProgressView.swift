@@ -15,6 +15,7 @@ struct CustomProgressView: ViewModifier {
         ZStack { content
             if isShownProgressView {
                 Color.gray.opacity(0.2)
+                    .scaleEffect(1.5)
 
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .gray))
