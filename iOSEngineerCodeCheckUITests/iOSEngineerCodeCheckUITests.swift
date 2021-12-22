@@ -8,17 +8,19 @@
 
 import XCTest
 
-class SearchRepositoryPage {
-    static let repoTitleID = "RepositoryTableViewCell_repoTitle"
-    static let languageID = "RepositoryTableViewCell_language"
+class RepositoryCellPage {
+    static let repoTitleID = "RepositoryCellView_repoTitle"
+    static let languageID = "RepositoryCellView_language"
+    static let starCountID = "RepositoryCellView_starcount"
 }
 
 class RepositoryDetailPage {
-    static let repoTitleID = "RepositoryDetailViewController_title"
-    static let languageID = "RepositoryDetailViewController_language"
-    static let watchersCountID = "RepositoryDetailViewController_watcherscount"
-    static let forksCountID = "RepositoryDetailViewController_forkscount"
-    static let issuesCountID = "RepositoryDetailViewController_issuescount"
+    static let repoTitleID = "RepositoryDetailView_title"
+    static let starCountID = "RepositoryDetailView_starcount"
+    static let descriptionID = "RepositoryDetailView_description"
+    static let watchersCountID = "RepositoryDetailView_watcherscount"
+    static let forksCountID = "RepositoryDetailView_forkscount"
+    static let issuesCountID = "RepositoryDetailView_issuescount"
 }
 
 class IOSEngineerCodeCheckUITests: XCTestCase {
@@ -47,12 +49,16 @@ class IOSEngineerCodeCheckUITests: XCTestCase {
             // エンターを押下する
             app.buttons["Search"].tap()
             // セルのUI要素を特定する
-            let repoTitleLabel = app.tables.cells.containing(.staticText, identifier: SearchRepositoryPage.repoTitleID).element(boundBy: 0)
-            let languageLabel = app.tables.cells.containing(.staticText, identifier: SearchRepositoryPage.languageID).element(boundBy: 0)
+            let image = app.images.element
+            let repoTitleLabel = app.tables.cells.containing(.staticText, identifier: RepositoryCellPage.repoTitleID).element(boundBy: 0)
+            let languageLabel = app.tables.cells.containing(.staticText, identifier: RepositoryCellPage.languageID).element(boundBy: 0)
+            let starCount = app.staticTexts[RepositoryCellPage.starCountID]
 
+            XCTAssertTrue(image.waitForExistence(timeout: 3))
             XCTAssertTrue(repoTitleLabel.waitForExistence(timeout: 3))
             XCTAssertTrue(repoTitleLabel.staticTexts.count != 0)
             XCTAssertTrue(languageLabel.waitForExistence(timeout: 3))
+            XCTAssertTrue(starCount.waitForExistence(timeout: 3))
         }
 
         XCTContext.runActivity(named: "リポジトリの詳細情報が表示される") { _ in
@@ -61,14 +67,16 @@ class IOSEngineerCodeCheckUITests: XCTestCase {
             // リポジトリ詳細画面のUI要素を取得
             let image = app.images.element
             let repoTitle = app.staticTexts[RepositoryDetailPage.repoTitleID]
-            let language = app.staticTexts[RepositoryDetailPage.languageID]
+            let starCount = app.staticTexts[RepositoryDetailPage.starCountID]
+            let description = app.staticTexts[RepositoryDetailPage.descriptionID]
             let watchersCount = app.staticTexts[RepositoryDetailPage.watchersCountID]
             let forksCount = app.staticTexts[RepositoryDetailPage.forksCountID]
             let issuesCount = app.staticTexts[RepositoryDetailPage.issuesCountID]
 
             XCTAssertTrue(image.waitForExistence(timeout: 3))
             XCTAssertTrue(repoTitle.waitForExistence(timeout: 3))
-            XCTAssertTrue(language.waitForExistence(timeout: 3))
+            XCTAssertTrue(starCount.waitForExistence(timeout: 3))
+            XCTAssertTrue(description.waitForExistence(timeout: 3))
             XCTAssertTrue(watchersCount.waitForExistence(timeout: 3))
             XCTAssertTrue(forksCount.waitForExistence(timeout: 3))
             XCTAssertTrue(issuesCount.waitForExistence(timeout: 3))

@@ -14,6 +14,10 @@ protocol SearchRepositoryModelInput {
         completionHandler: @escaping (Result<[GitHubRepository], GitHubClientError>) -> Void
     )
     func cancel()
+    func getImage(
+        imageURL: String,
+        completionHandler: @escaping(Data?) -> Void
+    )
 }
 
 final class SearchRepositoryModel: SearchRepositoryModelInput {
@@ -42,5 +46,24 @@ final class SearchRepositoryModel: SearchRepositoryModelInput {
     /// 取得処理のキャンセル
     func cancel() {
         client.cancel()
+    }
+
+    /// 画像取得
+    func getImage(
+        imageURL: String,
+        completionHandler: @escaping(Data?) -> Void
+    ) {
+        guard let url = URL(string: imageURL) else {
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else {
+                completionHandler(nil)
+                return
+            }
+            completionHandler(data)
+        }
+        task.resume()
     }
 }
