@@ -77,5 +77,6 @@ struct RepositoryCellView_Previews: PreviewProvider {
 
     static var previews: some View {
         RepositoryCellView(repository: stubRepo)
+            .previewLayout(.fixed(width: 500, height: 100))
     }
 }
