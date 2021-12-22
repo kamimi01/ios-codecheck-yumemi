@@ -17,6 +17,7 @@ extension GitHubRepository {
         let repo = GitHubRepository(
             fullName: "kamimi01/ios-codecheck-yumemi",
             language: "swift",
+            description: "",
             stargazersCount: 10,
             watchersCount: 20,
             forksCount: 30,
@@ -33,6 +34,7 @@ extension GitHubRepository {
         let repo = GitHubRepository(
             fullName: "kamimi01/ios-codecheck-yumemi",
             language: "swift",
+            description: "",
             stargazersCount: 10,
             watchersCount: 20,
             forksCount: 30,

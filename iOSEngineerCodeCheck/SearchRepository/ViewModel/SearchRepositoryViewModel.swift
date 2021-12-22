@@ -27,7 +27,7 @@ class SearchRepositoryViewModel: SearchRepositoryViewModelProtocol {
 
     private var model: SearchRepositoryModelInput
 
-    init(model: SearchRepositoryModel = SearchRepositoryModel()) {
+    init(model: SearchRepositoryModelInput = SearchRepositoryModel()) {
         self.model = model
     }
 
