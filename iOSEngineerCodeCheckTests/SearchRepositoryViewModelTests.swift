@@ -34,8 +34,12 @@ class SearchRepositoryModelInputSpy: SearchRepositoryModelInput {
 }
 
 class SearchRepositoryViewModelTests: XCTestCase {
+    var viewModel: SearchRepositoryViewModel!
+    var spy: SearchRepositoryModelInputSpy!
 
     override func setUp() {
+        spy = SearchRepositoryModelInputSpy()
+        viewModel = .init(model: spy)
     }
 
     override func tearDown() {
@@ -44,12 +48,9 @@ class SearchRepositoryViewModelTests: XCTestCase {
     func testDidTapSearchButton() throws {
         XCTContext.runActivity(named: "検索バーが押下時処理") { _ in
             XCTContext.runActivity(named: "リポジトリ検索成功時にView更新処理が呼ばれること") { _ in
-                let spy = SearchRepositoryModelInputSpy()
-                let viewModel = SearchRepositoryViewModel(model: spy)
                 let searchKeyword = "swift"
                 viewModel.keyword = searchKeyword
                 let repositories = [GitHubRepository.mock()]
-//                spy.addFetchRepositoryResponse(.success(repositories), whenQuery: searchKeyword)
                 let exp = XCTestExpectation(description: "didTapSearchButton内部で呼ばれるfetchRepositoriesの実行を待つ")
                 // テスト用のスパイメソッドのため、repositoriesは使用されていないが、実際は使用される
                 // swiftlint:disable unused_closure_parameter
@@ -68,8 +69,6 @@ class SearchRepositoryViewModelTests: XCTestCase {
     func testDidTapClearButton() {
         XCTContext.runActivity(named: "クリアボタン押下時処理") { _ in
             XCTContext.runActivity(named: "タスクのキャンセル処理が呼ばれること") { _ in
-                let spy = SearchRepositoryModelInputSpy()
-                let viewModel = SearchRepositoryViewModel(model: spy)
                 let exp = XCTestExpectation(description: "didClearButton内部で呼ばれるcancelの実行を待つ")
                 spy.cancelWithNothing = {
                     exp.fulfill()
@@ -79,6 +78,46 @@ class SearchRepositoryViewModelTests: XCTestCase {
                 viewModel.didTapClearButton()
                 wait(for: [exp], timeout: 1)
                 XCTAssertTrue(spy.countOfInvokingCancel == 1)
+            }
+        }
+    }
+
+    func testDidTapOrderButton() {
+        XCTContext.runActivity(named: "ソートボタン押下時処理") { _ in
+            XCTContext.runActivity(named: "Star数でソートされること") { _ in
+                viewModel.repositories = GitHubRepository.mockForSort()
+
+                viewModel.didTapOrderButton(.star)
+
+                XCTAssertTrue(viewModel.repositories.first?.fullName == "starSort")
+                XCTAssertTrue(viewModel.repositories.last?.fullName == "forkSort")
+            }
+
+            XCTContext.runActivity(named: "Watcher数でソートされること") { _ in
+                viewModel.repositories = GitHubRepository.mockForSort()
+
+                viewModel.didTapOrderButton(.watcher)
+
+                XCTAssertTrue(viewModel.repositories.first?.fullName == "watcherSort")
+                XCTAssertTrue(viewModel.repositories.last?.fullName == "starSort")
+            }
+
+            XCTContext.runActivity(named: "Forks数でソートされること") { _ in
+                viewModel.repositories = GitHubRepository.mockForSort()
+
+                viewModel.didTapOrderButton(.fork)
+
+                XCTAssertTrue(viewModel.repositories.first?.fullName == "forkSort")
+                XCTAssertTrue(viewModel.repositories.last?.fullName == "starSort")
+            }
+
+            XCTContext.runActivity(named: "Issues数でソートされること") { _ in
+                viewModel.repositories = GitHubRepository.mockForSort()
+
+                viewModel.didTapOrderButton(.issue)
+
+                XCTAssertTrue(viewModel.repositories.first?.fullName == "issueSort")
+                XCTAssertTrue(viewModel.repositories.last?.fullName == "watcherSort")
             }
         }
     }

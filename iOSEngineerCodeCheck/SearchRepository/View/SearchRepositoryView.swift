@@ -8,13 +8,30 @@
 
 import SwiftUI
 
+class SeachRepositoryPage {
+    static let sortButtonID = "SeachRepositoryView_sortButton"
+}
+
+enum OrderType: String, CaseIterable, Identifiable {
+    var id: String { rawValue }
+
+    case star = "stars"
+    case fork = "forks"
+    case watcher = "watchers"
+    case issue = "issues"
+}
+
 struct SearchRepositoryView<ViewModel: SearchRepositoryViewModelProtocol>: View {
     @ObservedObject var viewModel: ViewModel
-    @Environment(\.isSearching) var isSearching
+    @State private var isShownDialog = false
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .trailing) {
+                if viewModel.repositories.count != 0 {
+                    orderSelection
+                        .padding(.trailing, 16)
+                }
                 List(0..<viewModel.repositories.count, id: \.self) { index in
                     NavigationLink(destination: RepositoryDetailView(
                         repository: viewModel.repositories[index],
@@ -46,14 +63,37 @@ struct SearchRepositoryView<ViewModel: SearchRepositoryViewModelProtocol>: View 
                     viewModel.didTapClearButton()
                 }
             }
-            .onChange(of: isSearching) { newValue in
-                if newValue {
-                    print("テスト")
-                }
-            }
             .navigationBarTitle("検索", displayMode: .inline)
         }
         .customProgressView($viewModel.isShownProgressView)
+    }
+}
+
+extension SearchRepositoryView {
+    private var orderSelection: some View {
+        Button(action: {
+            isShownDialog.toggle()
+        }) {
+            HStack(spacing: 10) {
+                Image(systemName: "arrow.up.arrow.down")
+                Text(viewModel.orderType.rawValue)
+                    .font(.system(size: 17))
+            }
+            .foregroundColor(.black)
+        }
+        .accessibilityIdentifier(SeachRepositoryPage.sortButtonID)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .border(.gray)
+        .confirmationDialog("数が大きい順", isPresented: $isShownDialog) {
+            ForEach(OrderType.allCases) { type in
+                Button(action: {
+                    viewModel.didTapOrderButton(type)
+                }) {
+                    Text(type.rawValue)
+                }
+            }
+        }
     }
 }
 
@@ -64,6 +104,7 @@ struct SearchRepository_Previews: PreviewProvider {
         @Published var imageData: [String: Data?] = [:]
         @Published var isShownProgressView = false
         @Published var repositories = [GitHubRepository]()
+        @Published var orderType = OrderType.star
 
         init() {
             let stubOwner = GitHubRepoOwner(avatarURL: "https://example.com")
@@ -88,9 +129,54 @@ struct SearchRepository_Previews: PreviewProvider {
         func didTapClearButton() {
             print("クリアボタンがタップされた")
         }
+
+        func didTapOrderButton(_ type: OrderType) {
+            print("ソートボタンが押下された")
+        }
+    }
+
+    class SearchRepositoryViewModelLoadingMock: SearchRepositoryViewModelProtocol {
+        @Published var keyword = ""
+        @Published var isShownErrorAlert = false
+        @Published var imageData: [String: Data?] = [:]
+        @Published var isShownProgressView = true
+        @Published var repositories = [GitHubRepository]()
+        @Published var orderType = OrderType.star
+
+        init() {
+            let stubOwner = GitHubRepoOwner(avatarURL: "https://example.com")
+            self.repositories = [
+                GitHubRepository(
+                    fullName: "リポジトリ",
+                    language: "Swift",
+                    description: "詳細",
+                    stargazersCount: 10,
+                    watchersCount: 20,
+                    forksCount: 30,
+                    openIssuesCount: 40,
+                    owner: stubOwner
+                )
+            ]
+        }
+
+        func didTapSearchButton() {
+            print("検索ボタンが押下された")
+        }
+
+        func didTapClearButton() {
+            print("クリアボタンが押下された")
+        }
+
+        func didTapOrderButton(_ type: OrderType) {
+            print("ソートボタンが押下された")
+        }
     }
 
     static var previews: some View {
-        SearchRepositoryView(viewModel: SearchRepositoryViewModelMock())
+        Group {
+            SearchRepositoryView(viewModel: SearchRepositoryViewModelMock())
+
+            SearchRepositoryView(viewModel: SearchRepositoryViewModelLoadingMock())
+        }
     }
 }
