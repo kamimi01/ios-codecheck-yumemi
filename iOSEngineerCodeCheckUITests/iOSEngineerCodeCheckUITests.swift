@@ -8,6 +8,10 @@
 
 import XCTest
 
+class SeachRepositoryPage {
+    static let sortButtonID = "SeachRepositoryView_sortButton"
+}
+
 class RepositoryCellPage {
     static let repoTitleID = "RepositoryCellView_repoTitle"
     static let languageID = "RepositoryCellView_language"
@@ -80,6 +84,35 @@ class IOSEngineerCodeCheckUITests: XCTestCase {
             XCTAssertTrue(watchersCount.waitForExistence(timeout: 3))
             XCTAssertTrue(forksCount.waitForExistence(timeout: 3))
             XCTAssertTrue(issuesCount.waitForExistence(timeout: 3))
+        }
+    }
+
+    func testSortRepositories() {
+        XCTContext.runActivity(named: "ソートボタンを押下し、アクションシートが表示される。ボタンを押下するとリポジトリ一覧が再度表示される") { _ in
+            // 検索バーのUI要素を特定する
+            let searchField = app.searchFields.element
+            searchField.tap()
+            // 検索バーに文字列を入力する
+            searchField.typeText("swift")
+            // エンターを押下する
+            app.buttons["Search"].tap()
+            // ソートボタンを押下する
+            let sortButton = app.buttons[SeachRepositoryPage.sortButtonID]
+            sortButton.tap()
+            // アクションシートのボタンを押下する
+            let sortOptionButton = app.buttons["forks"]
+            sortOptionButton.tap()
+
+            let image = app.images.element
+            let repoTitleLabel = app.tables.cells.containing(.staticText, identifier: RepositoryCellPage.repoTitleID).element(boundBy: 0)
+            let languageLabel = app.tables.cells.containing(.staticText, identifier: RepositoryCellPage.languageID).element(boundBy: 0)
+            let starCount = app.staticTexts[RepositoryCellPage.starCountID]
+
+            XCTAssertTrue(image.waitForExistence(timeout: 3))
+            XCTAssertTrue(repoTitleLabel.waitForExistence(timeout: 3))
+            XCTAssertTrue(repoTitleLabel.staticTexts.count != 0)
+            XCTAssertTrue(languageLabel.waitForExistence(timeout: 3))
+            XCTAssertTrue(starCount.waitForExistence(timeout: 3))
         }
     }
 }

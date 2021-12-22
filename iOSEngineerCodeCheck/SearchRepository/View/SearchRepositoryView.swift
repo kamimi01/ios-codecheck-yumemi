@@ -8,6 +8,10 @@
 
 import SwiftUI
 
+class SeachRepositoryPage {
+    static let sortButtonID = "SeachRepositoryView_sortButton"
+}
+
 enum OrderType: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 
@@ -77,6 +81,7 @@ extension SearchRepositoryView {
             }
             .foregroundColor(.black)
         }
+        .accessibilityIdentifier(SeachRepositoryPage.sortButtonID)
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
         .border(.gray)
