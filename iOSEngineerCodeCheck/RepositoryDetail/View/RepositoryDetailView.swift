@@ -8,6 +8,15 @@
 
 import SwiftUI
 
+class RepositoryDetailPage {
+    static let repoTitleID = "RepositoryDetailView_title"
+    static let starCountID = "RepositoryDetailView_starcount"
+    static let descriptionID = "RepositoryDetailView_description"
+    static let watchersCountID = "RepositoryDetailView_watcherscount"
+    static let forksCountID = "RepositoryDetailView_forkscount"
+    static let issuesCountID = "RepositoryDetailView_issuescount"
+}
+
 struct RepositoryDetailView: View {
     var repository: GitHubRepository
     var imageData: Data?
@@ -16,8 +25,11 @@ struct RepositoryDetailView: View {
         VStack(spacing: 20) {
             image
             repoTitle
+                .accessibilityIdentifier(RepositoryDetailPage.repoTitleID)
             starCount
+                .accessibilityIdentifier(RepositoryDetailPage.starCountID)
             repoDesctiption
+                .accessibilityIdentifier(RepositoryDetailPage.descriptionID)
             countDetail
             Spacer()
         }
@@ -54,16 +66,19 @@ extension RepositoryDetailView {
         HStack {
             VStack {
                 Text("\(unwrap(repository.watchersCount))")
+                    .accessibilityIdentifier(RepositoryDetailPage.watchersCountID)
                 Text("watchers")
             }
             Spacer()
             VStack {
                 Text("\(unwrap(repository.forksCount))")
+                    .accessibilityIdentifier(RepositoryDetailPage.forksCountID)
                 Text("forks")
             }
             Spacer()
             VStack {
                 Text("\(unwrap(repository.openIssuesCount))")
+                    .accessibilityIdentifier(RepositoryDetailPage.issuesCountID)
                 Text("issues")
             }
         }

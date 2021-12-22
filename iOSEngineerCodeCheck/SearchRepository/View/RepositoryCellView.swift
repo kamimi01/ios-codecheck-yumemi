@@ -8,6 +8,12 @@
 
 import SwiftUI
 
+class RepositoryCellPage {
+    static let repoTitleID = "RepositoryCellView_repoTitle"
+    static let languageID = "RepositoryCellView_language"
+    static let starCountID = "RepositoryCellView_starcount"
+}
+
 struct RepositoryCellView: View {
     var repository: GitHubRepository
     var imageData: Data?
@@ -17,10 +23,13 @@ struct RepositoryCellView: View {
             image
             VStack(alignment: .leading, spacing: 10) {
                 repoTitle
+                    .accessibilityIdentifier(RepositoryCellPage.repoTitleID)
                 HStack {
                     language
+                        .accessibilityIdentifier(RepositoryCellPage.languageID)
                     Spacer()
                     starCount
+                        .accessibilityIdentifier(RepositoryCellPage.starCountID)
                 }
             }
         }
