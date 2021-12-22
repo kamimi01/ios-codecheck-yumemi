@@ -14,11 +14,11 @@ class SearchRepositoryPage {
 }
 
 class RepositoryDetailPage {
-    static let repoTitle = "RepositoryDetailViewController_title"
-    static let language = "RepositoryDetailViewController_language"
-    static let watchersCount = "RepositoryDetailViewController_watcherscount"
-    static let forksCount = "RepositoryDetailViewController_forkscount"
-    static let issuesCount = "RepositoryDetailViewController_issuescount"
+    static let repoTitleID = "RepositoryDetailViewController_title"
+    static let languageID = "RepositoryDetailViewController_language"
+    static let watchersCountID = "RepositoryDetailViewController_watcherscount"
+    static let forksCountID = "RepositoryDetailViewController_forkscount"
+    static let issuesCountID = "RepositoryDetailViewController_issuescount"
 }
 
 class IOSEngineerCodeCheckUITests: XCTestCase {
@@ -60,11 +60,11 @@ class IOSEngineerCodeCheckUITests: XCTestCase {
             app.tables.cells.element(boundBy: 0).tap()
             // リポジトリ詳細画面のUI要素を取得
             let image = app.images.element
-            let repoTitle = app.staticTexts[RepositoryDetailPage.repoTitle]
-            let language = app.staticTexts[RepositoryDetailPage.language]
-            let watchersCount = app.staticTexts[RepositoryDetailPage.watchersCount]
-            let forksCount = app.staticTexts[RepositoryDetailPage.forksCount]
-            let issuesCount = app.staticTexts[RepositoryDetailPage.issuesCount]
+            let repoTitle = app.staticTexts[RepositoryDetailPage.repoTitleID]
+            let language = app.staticTexts[RepositoryDetailPage.languageID]
+            let watchersCount = app.staticTexts[RepositoryDetailPage.watchersCountID]
+            let forksCount = app.staticTexts[RepositoryDetailPage.forksCountID]
+            let issuesCount = app.staticTexts[RepositoryDetailPage.issuesCountID]
 
             XCTAssertTrue(image.waitForExistence(timeout: 3))
             XCTAssertTrue(repoTitle.waitForExistence(timeout: 3))
