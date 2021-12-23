@@ -12,3 +12,6 @@ identifier_name:
 
 function_body_length:
 - 100
+
+disabled_rules:
+- multiple_closures_with_trailing_closure # SwiftUIのデフォルトの書き方に反したルールのため

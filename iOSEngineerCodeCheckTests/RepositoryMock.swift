@@ -43,12 +43,12 @@ extension GitHubRepository {
         )
         return repo
     }
-    
+
     static func mockForSort() -> [GitHubRepository] {
         let repoOwner = GitHubRepoOwner(
             avatarURL: ""
         )
-        
+
         return [
             GitHubRepository(
                 fullName: "starSort",
